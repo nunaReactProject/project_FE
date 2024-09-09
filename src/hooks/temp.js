@@ -1,20 +1,23 @@
 import { useQuery } from '@tanstack/react-query';
 import { productOpenApi } from '../Api';
-import axios from 'axios';
-const OPEN_API_SERVICE_KEY = process.env.REACT_APP_OPEN_API_SERVICE_KEY;
+import { XMLParser } from 'fast-xml-parser';
 
-console.log('temp');
-
-const fetchtemp = () => {
-  return productOpenApi({
+const fetchtemp = async () => {
+  const response = await productOpenApi({
     method: 'get',
     url: '/prfplc/FC001247'
   });
+
+  const parser = new XMLParser();
+  const jsonData = parser.parse(response.data);
+
+  return jsonData;
 };
 
 export const useDetail = () => {
   return useQuery({
     queryKey: ['temp'],
-    queryFn: fetchtemp
+    queryFn: fetchtemp,
+    select: (result) => result.dbs
   });
 };

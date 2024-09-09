@@ -5,7 +5,7 @@ export default function Mainpage() {
   const { data } = useDetail();
 
   useEffect(() => {
-    if (data) console.log(data);
+    if (data) console.log('data', data);
   }, [data]);
   return <div>Mainpage</div>;
 }
