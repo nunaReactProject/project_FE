@@ -2,6 +2,7 @@
   "name": "showplatform",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://kopis.or.kr/openApi/restful",
   "dependencies": {
     "@tanstack/react-query": "^5.55.2",
     "@testing-library/jest-dom": "^5.17.0",
