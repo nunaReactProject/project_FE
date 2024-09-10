@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDetail } from '../../hooks/temp';
 import Banner from '../../components/Mainpage/banner/Banner';
+import TicketOpen from '../../components/Mainpage/ticketOpen/TicketOpen';
 
 export default function Mainpage() {
   const { data } = useDetail();
@@ -11,6 +12,7 @@ export default function Mainpage() {
   return (
     <div>
       <Banner />
+      <TicketOpen />
     </div>
   );
 }
