@@ -41,7 +41,6 @@ const fetchTicketOpen = async () => {
       url: '/pblprfr',
       params: {
         stdate: formattedYesterdayDate,
-        eddate: formattedCurrentDate,
         cpage: 1,
         rows: 5,
         prfstate: '02',
