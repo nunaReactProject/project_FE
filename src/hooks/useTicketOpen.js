@@ -25,9 +25,7 @@ const fetchTicketOpen = async () => {
       stdate: formattedCurrentDate,
       cpage: 1,
       rows: 5,
-      prfstate: '02',
-      signgucode: '11',
-      signgucodesub: '1111'
+      prfstate: '02'
     }
   });
 
@@ -43,9 +41,7 @@ const fetchTicketOpen = async () => {
         stdate: formattedYesterdayDate,
         cpage: 1,
         rows: 5,
-        prfstate: '02',
-        signgucode: '11',
-        signgucodesub: '1111'
+        prfstate: '02'
       }
     });
 
