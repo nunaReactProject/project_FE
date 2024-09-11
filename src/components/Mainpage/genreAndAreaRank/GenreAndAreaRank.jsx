@@ -170,6 +170,15 @@ const GenreAndAreaRank = () => {
     </>
   );
 
+  const GenreClick = () => {
+    setSelectedRank('genre');
+    setAreaCategoryButton('seoul');
+  };
+  const areaClick = () => {
+    setSelectedRank('area');
+    setGenreCategoryButton('play');
+  };
+
   const renderData = () => {
     const data = getData();
 
@@ -198,12 +207,12 @@ const GenreAndAreaRank = () => {
           <div className='genre-area-rank-header-box'>
             <h1
               className={`genre-rank ${selectedRank === 'genre' ? 'genre-area-rank-header-click' : ''}`}
-              onClick={() => setSelectedRank('genre')}>
+              onClick={GenreClick}>
               장르별랭킹
             </h1>
             <h1
               className={`area-rank ${selectedRank === 'area' ? 'genre-area-rank-header-click' : ''}`}
-              onClick={() => setSelectedRank('area')}>
+              onClick={areaClick}>
               지역별랭킹
             </h1>
           </div>
