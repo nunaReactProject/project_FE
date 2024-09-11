@@ -1,0 +1,175 @@
+.genre-area-rank-container {
+  display: flex;
+  justify-content: center;
+}
+.genre-area-rank-wrap {
+  margin: 90px;
+  width: 1150px;
+  height: 481px;
+}
+.genre-area-rank-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.genre-area-rank-header > a {
+  display: inline-block;
+  color: #242428;
+  font-size: 15px;
+}
+.genre-area-rank-header > h1 {
+  font-weight: 500;
+  color: #242428;
+}
+
+.genre-area-rank-box {
+  display: flex;
+  justify-content: space-between;
+}
+.genre-area-rank-item {
+  width: 200px;
+  cursor: pointer;
+}
+.genre-area-rank-img-box {
+  width: 200px;
+  height: 247px;
+  position: relative;
+}
+.genre-area-rank-img-box-detail {
+  width: inherit;
+  height: 247px;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.genre-area-rank-img-box-detail > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.genre-area-rank-img-box-detail:hover > img {
+  height: 247px;
+  transform: scale(1.1);
+}
+.genre-area-rank-img-box > p {
+  position: absolute;
+  bottom: 0;
+  left: 12px;
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 46px;
+  color: white;
+}
+
+.genre-area-rank-title {
+  margin-top: 10px;
+  font-size: 18px;
+}
+.genre-area-rank-date {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #62676c;
+}
+.genre-area-rank-category-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 30px 0 20px 0;
+}
+.genre-area-rank-category {
+  width: 70%;
+  height: 82px;
+}
+.genre-area-rank-category > button {
+  border: 1px solid #dcdde1;
+  background: transparent;
+  font-size: 16px;
+  padding: 6px 18px 8px;
+  color: #242428;
+  cursor: pointer;
+  border-radius: 20px;
+  margin-right: 7px;
+  margin-bottom: 3px;
+}
+.genre-area-rank-category > button:hover {
+  border: 1px solid #242428;
+}
+div .genre-area-rank-category-click {
+  color: white;
+  font-weight: 600;
+  background: #242428;
+}
+.genre-area-rank-date-category {
+  display: flex;
+  cursor: pointer;
+}
+.genre-area-rank-date-category-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 14px;
+  color: #62676c;
+  position: relative;
+}
+
+.genre-area-rank-date-category-item:hover {
+  color: #242428;
+  font-weight: 700;
+}
+.genre-area-rank-date-category-item > div:hover {
+  color: #242428;
+  font-weight: 700;
+}
+div .genre-area-rank-date-click {
+  color: #242428;
+  font-weight: 700;
+}
+div .genre-area-rank-date-click::before {
+  content: '·';
+  color: #242428;
+  font-size: 20px;
+  position: absolute;
+  left: -8%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.genre-area-rank-header-box {
+  display: flex;
+  color: #a7acb6;
+}
+.genre-rank {
+  display: flex;
+  font-size: 32px;
+  align-items: center;
+  font-weight: 500;
+  cursor: pointer;
+}
+.genre-area-rank-header-click {
+  color: #242428 !important;
+}
+.area-rank {
+  font-weight: 500;
+  font-size: 32px;
+  cursor: pointer;
+}
+.genre-rank:hover {
+  color: #5f646e;
+}
+.area-rank:hover {
+  color: #5f646e;
+}
+.genre-rank::after {
+  content: '|';
+  font-size: 23px;
+  font-weight: 300;
+  display: inline-block;
+  margin: 0 5px;
+  color: #a7acb6;
+}
