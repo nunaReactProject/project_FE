@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './GenreAndAreaRank.style.css';
-import * as GenreHooks from '../../../hooks/useGenreCategories';
+import { useAreaRank, useGenreRank } from '../../../hooks/useGenreAreaCategiry';
 
 const GenreAndAreaRank = () => {
   const [selectedRank, setSelectedRank] = useState('genre');
@@ -8,45 +8,119 @@ const GenreAndAreaRank = () => {
   const [areaCategoryButton, setAreaCategoryButton] = useState('seoul');
   const [selectedDate, setSelectedDate] = useState('day');
   const baseUrl = 'http://www.kopis.or.kr';
+  const getFormattedDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}${month}${day}`;
+  };
+  const currentDate = new Date();
+  const twoDaysAgo = new Date(currentDate);
+  twoDaysAgo.setDate(currentDate.getDate() - 2);
+  const formattedCurrentDate = getFormattedDate(currentDate);
+  const formattedTwoDaysAgo = getFormattedDate(twoDaysAgo);
 
-  // day
-  const { data: play } = GenreHooks.useGenrePlayDay();
-  const { data: musical } = GenreHooks.useGenreMusicalDay();
-  const { data: classic } = GenreHooks.useGenreClassicDay();
-  const { data: koreanMusic } = GenreHooks.useGenreKoreanMusicDay();
-  const { data: popularMusic } = GenreHooks.useGenrePopularMusicDay();
-  const { data: dance } = GenreHooks.useGenreDanceDay();
-  const { data: popularDance } = GenreHooks.useGenrePopularDanceDay();
-  const { data: circusMagice } = GenreHooks.useGenreCircusMagiceDay();
-  const { data: compound } = GenreHooks.useGenreCompoundDay();
-  const { data: kid } = GenreHooks.useGenreKidDay();
-  const { data: open } = GenreHooks.useGenreOpenDay();
+  const { data: play } = useGenreRank({ ststype: 'day', date: formattedTwoDaysAgo, catecode: 'AAAA' });
+  const { data: musical } = useGenreRank({ ststype: 'day', date: formattedTwoDaysAgo, catecode: 'GGGA' });
+  const { data: concert } = useGenreRank({ ststype: 'day', date: formattedTwoDaysAgo, catecode: 'CCCC|CCCD' });
+  const { data: classicAndDance } = useGenreRank({
+    ststype: 'day',
+    date: formattedTwoDaysAgo,
+    catecode: 'CCCA|BBBC|BBBR'
+  });
+  const { data: circusMagice } = useGenreRank({ ststype: 'day', date: formattedTwoDaysAgo, catecode: 'EEEB' });
+  const { data: kid } = useGenreRank({ ststype: 'day', date: formattedTwoDaysAgo, catecode: 'KID' });
 
   // week
-  const { data: playW } = GenreHooks.useGenrePlayWeek();
-  const { data: musicalW } = GenreHooks.useGenreMusicalWeek();
-  const { data: classicW } = GenreHooks.useGenreClassicWeek();
-  const { data: koreanMusicW } = GenreHooks.useGenreKoreanMusicWeek();
-  const { data: popularMusicW } = GenreHooks.useGenrePopularMusicWeek();
-  const { data: danceW } = GenreHooks.useGenreDanceWeek();
-  const { data: popularDanceW } = GenreHooks.useGenrePopularDanceWeek();
-  const { data: circusMagiceW } = GenreHooks.useGenreCircusMagiceWeek();
-  const { data: compoundW } = GenreHooks.useGenreCompoundWeek();
-  const { data: kidW } = GenreHooks.useGenreKidWeek();
-  const { data: openW } = GenreHooks.useGenreOpenWeek();
+  const { data: playW } = useGenreRank({ ststype: 'week', date: formattedCurrentDate, catecode: 'AAAA' });
+  const { data: musicalW } = useGenreRank({ ststype: 'week', date: formattedCurrentDate, catecode: 'GGGA' });
+  const { data: concertW } = useGenreRank({ ststype: 'week', date: formattedCurrentDate, catecode: 'CCCC|CCCD' });
+  const { data: classicAndDanceW } = useGenreRank({
+    ststype: 'week',
+    date: formattedCurrentDate,
+    catecode: 'CCCA|BBBC|BBBR'
+  });
+  const { data: circusMagiceW } = useGenreRank({ ststype: 'week', date: formattedCurrentDate, catecode: 'EEEB' });
+  const { data: kidW } = useGenreRank({ ststype: 'week', date: formattedCurrentDate, catecode: 'KID' });
 
   // month
-  const { data: playM } = GenreHooks.useGenrePlayMonth();
-  const { data: musicalM } = GenreHooks.useGenreMusicalMonth();
-  const { data: classicM } = GenreHooks.useGenreClassicMonth();
-  const { data: koreanMusicM } = GenreHooks.useGenreKoreanMusicMonth();
-  const { data: popularMusicM } = GenreHooks.useGenrePopularMusicMonth();
-  const { data: danceM } = GenreHooks.useGenreDanceMonth();
-  const { data: popularDanceM } = GenreHooks.useGenrePopularDanceMonth();
-  const { data: circusMagiceM } = GenreHooks.useGenreCircusMagiceMonth();
-  const { data: compoundM } = GenreHooks.useGenreCompoundMonth();
-  const { data: kidM } = GenreHooks.useGenreKidMonth();
-  const { data: openM } = GenreHooks.useGenreOpenMonth();
+  const { data: playM } = useGenreRank({ ststype: 'month', date: formattedCurrentDate, catecode: 'AAAA' });
+  const { data: musicalM } = useGenreRank({ ststype: 'month', date: formattedCurrentDate, catecode: 'GGGA' });
+  const { data: concertM } = useGenreRank({ ststype: 'month', date: formattedCurrentDate, catecode: 'CCCC|CCCD' });
+  const { data: classicAndDanceM } = useGenreRank({
+    ststype: 'month',
+    date: formattedCurrentDate,
+    catecode: 'CCCA|BBBC|BBBR'
+  });
+  const { data: circusMagiceM } = useGenreRank({ ststype: 'month', date: formattedCurrentDate, catecode: 'EEEB' });
+  const { data: kidM } = useGenreRank({ ststype: 'month', date: formattedCurrentDate, catecode: 'KID' });
+
+  // day
+  const { data: seoulDay } = useAreaRank({ ststype: 'day', date: formattedTwoDaysAgo, area: '11' });
+  const { data: incheonAndGyeonggiDay } = useAreaRank({ ststype: 'day', date: formattedTwoDaysAgo, area: '28|41' });
+  const { data: daejeonAndSejongDay } = useAreaRank({ ststype: 'day', date: formattedTwoDaysAgo, area: '30|36' });
+  const { data: daeguAndBusanAndUlsanDay } = useAreaRank({
+    ststype: 'day',
+    date: formattedTwoDaysAgo,
+    area: '27|26|31'
+  });
+  const { data: chungcheongAndGangwonDay } = useAreaRank({
+    ststype: 'day',
+    date: formattedTwoDaysAgo,
+    area: '43|44|51'
+  });
+  const { data: gwangjuAndJeollaAndGyeongsangDay } = useAreaRank({
+    ststype: 'day',
+    date: formattedTwoDaysAgo,
+    area: '45|46|29|47|48'
+  });
+  const { data: jejuDay } = useAreaRank({ ststype: 'day', date: formattedTwoDaysAgo, area: '50' });
+
+  // week
+  const { data: seoulWeek } = useAreaRank({ ststype: 'week', date: formattedCurrentDate, area: '11' });
+  const { data: incheonAndGyeonggiWeek } = useAreaRank({ ststype: 'week', date: formattedCurrentDate, area: '28|41' });
+  const { data: daejeonAndSejongWeek } = useAreaRank({ ststype: 'week', date: formattedCurrentDate, area: '30|36' });
+  const { data: daeguAndBusanAndUlsanWeek } = useAreaRank({
+    ststype: 'week',
+    date: formattedCurrentDate,
+    area: '27|26|31'
+  });
+  const { data: chungcheongAndGangwonWeek } = useAreaRank({
+    ststype: 'week',
+    date: formattedCurrentDate,
+    area: '43|44|51'
+  });
+  const { data: gwangjuAndJeollaAndGyeongsangWeek } = useAreaRank({
+    ststype: 'week',
+    date: formattedCurrentDate,
+    area: '45|46|29|47|48'
+  });
+  const { data: jejuWeek } = useAreaRank({ ststype: 'week', date: formattedCurrentDate, area: '50' });
+
+  // month
+  const { data: seoulMonth } = useAreaRank({ ststype: 'month', date: formattedCurrentDate, area: '11' });
+  const { data: incheonAndGyeonggiMonth } = useAreaRank({
+    ststype: 'month',
+    date: formattedCurrentDate,
+    area: '28|41'
+  });
+  const { data: daejeonAndSejongMonth } = useAreaRank({ ststype: 'month', date: formattedCurrentDate, area: '30|36' });
+  const { data: daeguAndBusanAndUlsanMonth } = useAreaRank({
+    ststype: 'month',
+    date: formattedCurrentDate,
+    area: '27|26|31'
+  });
+  const { data: chungcheongAndGangwonMonth } = useAreaRank({
+    ststype: 'month',
+    date: formattedCurrentDate,
+    area: '43|44|51'
+  });
+  const { data: gwangjuAndJeollaAndGyeongsangMonth } = useAreaRank({
+    ststype: 'month',
+    date: formattedCurrentDate,
+    area: '45|46|29|47|48'
+  });
+  const { data: jejuMonth } = useAreaRank({ ststype: 'month', date: formattedCurrentDate, area: '50' });
 
   const getData = () => {
     let data;
@@ -58,40 +132,75 @@ const GenreAndAreaRank = () => {
         case 'musical':
           data = selectedDate === 'day' ? musical : selectedDate === 'week' ? musicalW : musicalM;
           break;
-        case 'classic':
-          data = selectedDate === 'day' ? classic : selectedDate === 'week' ? classicW : classicM;
+        case 'concert':
+          data = selectedDate === 'day' ? concert : selectedDate === 'week' ? concertW : concertM;
           break;
-        case 'koreanMusic':
-          data = selectedDate === 'day' ? koreanMusic : selectedDate === 'week' ? koreanMusicW : koreanMusicM;
-          break;
-        case 'popularMusic':
-          data = selectedDate === 'day' ? popularMusic : selectedDate === 'week' ? popularMusicW : popularMusicM;
-          break;
-        case 'dance':
-          data = selectedDate === 'day' ? dance : selectedDate === 'week' ? danceW : danceM;
-          break;
-        case 'popularDance':
-          data = selectedDate === 'day' ? popularDance : selectedDate === 'week' ? popularDanceW : popularDanceM;
+        case 'classicAndDance':
+          data =
+            selectedDate === 'day' ? classicAndDance : selectedDate === 'week' ? classicAndDanceW : classicAndDanceM;
           break;
         case 'circusMagice':
           data = selectedDate === 'day' ? circusMagice : selectedDate === 'week' ? circusMagiceW : circusMagiceM;
           break;
-        case 'compound':
-          data = selectedDate === 'day' ? compound : selectedDate === 'week' ? compoundW : compoundM;
-          break;
         case 'kid':
           data = selectedDate === 'day' ? kid : selectedDate === 'week' ? kidW : kidM;
-          break;
-        case 'open':
-          data = selectedDate === 'day' ? open : selectedDate === 'week' ? openW : openM;
           break;
         default:
           data = [];
       }
-    } else {
-      // Area-based data handling can be added here
-      data = [];
+    } else if (selectedRank === 'area') {
+      switch (areaCategoryButton) {
+        case 'seoul':
+          data = selectedDate === 'day' ? seoulDay : selectedDate === 'week' ? seoulWeek : seoulMonth;
+          break;
+        case 'incheonAndGyeonggi':
+          data =
+            selectedDate === 'day'
+              ? incheonAndGyeonggiDay
+              : selectedDate === 'week'
+                ? incheonAndGyeonggiWeek
+                : incheonAndGyeonggiMonth;
+          break;
+        case 'daejeonAndSejong':
+          data =
+            selectedDate === 'day'
+              ? daejeonAndSejongDay
+              : selectedDate === 'week'
+                ? daejeonAndSejongWeek
+                : daejeonAndSejongMonth;
+          break;
+        case 'daeguAndBusanAndUlsan':
+          data =
+            selectedDate === 'day'
+              ? daeguAndBusanAndUlsanDay
+              : selectedDate === 'week'
+                ? daeguAndBusanAndUlsanWeek
+                : daeguAndBusanAndUlsanMonth;
+          break;
+        case 'chungcheongAndGangwon':
+          data =
+            selectedDate === 'day'
+              ? chungcheongAndGangwonDay
+              : selectedDate === 'week'
+                ? chungcheongAndGangwonWeek
+                : chungcheongAndGangwonMonth;
+          break;
+        case 'gwangjuAndJeollaAndGyeongsang':
+          data =
+            selectedDate === 'day'
+              ? gwangjuAndJeollaAndGyeongsangDay
+              : selectedDate === 'week'
+                ? gwangjuAndJeollaAndGyeongsangWeek
+                : gwangjuAndJeollaAndGyeongsangMonth;
+          break;
+        case 'jeju':
+          data = selectedDate === 'day' ? jejuDay : selectedDate === 'week' ? jejuWeek : jejuMonth;
+          break;
+        default:
+          data = [];
+      }
     }
+
     return data || [];
   };
 
@@ -108,29 +217,14 @@ const GenreAndAreaRank = () => {
         뮤지컬
       </button>
       <button
-        className={genreCategoryButton === 'classic' ? 'genre-area-rank-category-click' : ''}
-        onClick={() => setGenreCategoryButton('classic')}>
-        서양음악
+        className={genreCategoryButton === 'concert' ? 'genre-area-rank-category-click' : ''}
+        onClick={() => setGenreCategoryButton('concert')}>
+        콘서트
       </button>
       <button
-        className={genreCategoryButton === 'koreanMusic' ? 'genre-area-rank-category-click' : ''}
-        onClick={() => setGenreCategoryButton('koreanMusic')}>
-        한국음악
-      </button>
-      <button
-        className={genreCategoryButton === 'popularMusic' ? 'genre-area-rank-category-click' : ''}
-        onClick={() => setGenreCategoryButton('popularMusic')}>
-        대중음악
-      </button>
-      <button
-        className={genreCategoryButton === 'dance' ? 'genre-area-rank-category-click' : ''}
-        onClick={() => setGenreCategoryButton('dance')}>
-        무용
-      </button>
-      <button
-        className={genreCategoryButton === 'popularDance' ? 'genre-area-rank-category-click' : ''}
-        onClick={() => setGenreCategoryButton('popularDance')}>
-        대중무용
+        className={genreCategoryButton === 'classicAndDance' ? 'genre-area-rank-category-click' : ''}
+        onClick={() => setGenreCategoryButton('classicAndDance')}>
+        클래식/무용
       </button>
       <button
         className={genreCategoryButton === 'circusMagice' ? 'genre-area-rank-category-click' : ''}
@@ -138,19 +232,9 @@ const GenreAndAreaRank = () => {
         서커스/마술
       </button>
       <button
-        className={genreCategoryButton === 'compound' ? 'genre-area-rank-category-click' : ''}
-        onClick={() => setGenreCategoryButton('compound')}>
-        복합
-      </button>
-      <button
         className={genreCategoryButton === 'kid' ? 'genre-area-rank-category-click' : ''}
         onClick={() => setGenreCategoryButton('kid')}>
         아동
-      </button>
-      <button
-        className={genreCategoryButton === 'open' ? 'genre-area-rank-category-click' : ''}
-        onClick={() => setGenreCategoryButton('open')}>
-        오픈런
       </button>
     </>
   );
@@ -163,9 +247,34 @@ const GenreAndAreaRank = () => {
         서울
       </button>
       <button
-        className={areaCategoryButton === 'busan' ? 'genre-area-rank-category-click' : ''}
-        onClick={() => setAreaCategoryButton('busan')}>
-        부산
+        className={areaCategoryButton === 'incheonAndGyeonggi' ? 'genre-area-rank-category-click' : ''}
+        onClick={() => setAreaCategoryButton('incheonAndGyeonggi')}>
+        경기/인천
+      </button>
+      <button
+        className={areaCategoryButton === 'daejeonAndSejong' ? 'genre-area-rank-category-click' : ''}
+        onClick={() => setAreaCategoryButton('daejeonAndSejong')}>
+        대전/세종
+      </button>
+      <button
+        className={areaCategoryButton === 'daeguAndBusanAndUlsan' ? 'genre-area-rank-category-click' : ''}
+        onClick={() => setAreaCategoryButton('daeguAndBusanAndUlsan')}>
+        대구/부산/울산
+      </button>
+      <button
+        className={areaCategoryButton === 'chungcheongAndGangwon' ? 'genre-area-rank-category-click' : ''}
+        onClick={() => setAreaCategoryButton('chungcheongAndGangwon')}>
+        충청/강원
+      </button>
+      <button
+        className={areaCategoryButton === 'gwangjuAndJeollaAndGyeongsang' ? 'genre-area-rank-category-click' : ''}
+        onClick={() => setAreaCategoryButton('gwangjuAndJeollaAndGyeongsang')}>
+        광주/전라/경상
+      </button>
+      <button
+        className={areaCategoryButton === 'jeju' ? 'genre-area-rank-category-click' : ''}
+        onClick={() => setAreaCategoryButton('jeju')}>
+        제주
       </button>
     </>
   );
@@ -173,10 +282,12 @@ const GenreAndAreaRank = () => {
   const GenreClick = () => {
     setSelectedRank('genre');
     setAreaCategoryButton('seoul');
+    setSelectedDate('day');
   };
   const areaClick = () => {
     setSelectedRank('area');
     setGenreCategoryButton('play');
+    setSelectedDate('day');
   };
 
   const renderData = () => {

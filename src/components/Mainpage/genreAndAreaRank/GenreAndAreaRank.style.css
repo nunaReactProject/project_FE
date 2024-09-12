@@ -3,7 +3,7 @@
   justify-content: center;
 }
 .genre-area-rank-wrap {
-  margin: 90px;
+  margin: 40px;
   width: 1150px;
   height: 481px;
 }
@@ -80,10 +80,6 @@
   justify-content: space-between;
   align-items: center;
   margin: 30px 0 20px 0;
-}
-.genre-area-rank-category {
-  width: 70%;
-  height: 82px;
 }
 .genre-area-rank-category > button {
   border: 1px solid #dcdde1;
