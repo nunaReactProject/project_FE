@@ -20,6 +20,9 @@ export const RankingReriod = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
+  height: 42px;
+  margin-bottom: 20px;
+  margin-top: 32px;
 `;
 
 export const CalendarButton = styled.button`

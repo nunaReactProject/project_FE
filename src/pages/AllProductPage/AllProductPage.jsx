@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
+import { format, subDays } from 'date-fns';
 import { useRankProductQuery } from '../../hooks/useRankProduct';
 import RankingCard from '../../components/AllProduct/RankingCard/RankingCard';
 import RankingPeriod from '../../components/AllProduct/RankingPeriod/RankingPeriod';
-import Container from './AllProductPage.styled';
+import GenreRanking from '../../components/AllProduct/GenreRanking/GenreRanking';
+import LocationRanking from '../../components/AllProduct/LocationRanking/LocationRanking';
+import * as S from './AllProductPage.styled.js';
 
 export default function AllProductPage() {
   const today = new Date();
-  today.setDate(today.getDate() - 2);
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, '0');
-  const day = String(today.getDate()).padStart(2, '0');
-  const initialFormattedDate = `${year}${month}${day}`;
+  const initialDate = subDays(today, 2);
+  const initialFormattedDate = format(initialDate, 'yyyyMMdd');
 
   const [ststype, setStstype] = useState('day');
   const [date, setDate] = useState(initialFormattedDate);
-  const { data, isLoading, error } = useRankProductQuery({ ststype, date: date });
+  const [catecode, setCatecode] = useState('GGGA');
+  const [selectedCategory, setSelectedCategory] = useState('GGGA');
+  const [area, setArea] = useState('');
+
+  const { data, isLoading, error } = useRankProductQuery({ ststype, date, catecode, area });
   if (isLoading) {
     return <div>Loading</div>;
   }
@@ -26,14 +30,21 @@ export default function AllProductPage() {
   const products = data?.slice(0, 20);
 
   return (
-    <Container>
-      <div>장르별랭킹지역별랭킹</div>
+    <S.Container>
+      <S.TypeRanking>
+        <GenreRanking
+          setCatecode={setCatecode}
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+        />
+        <LocationRanking />
+      </S.TypeRanking>
       <div>
         <RankingPeriod setStstype={setStstype} setDate={setDate} />
       </div>
       <div>
         <RankingCard products={products} />
       </div>
-    </Container>
+    </S.Container>
   );
 }
