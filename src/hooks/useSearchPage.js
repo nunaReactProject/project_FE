@@ -10,7 +10,7 @@ const formatDate = (date) => {
 const fetchSearchMusical = async () => {
   const today = new Date();
 
-  const stdate = formatDate(new Date(today.getFullYear() - 3, today.getMonth(), today.getDate())); // 1년 전
+  const stdate = formatDate(new Date(today.getFullYear() - 1, today.getMonth(), today.getDate())); // 1년 전
   const eddate = formatDate(new Date(today.getFullYear() + 1, today.getMonth(), today.getDate())); // 1년 후
 
   const response = await productOpenApi({

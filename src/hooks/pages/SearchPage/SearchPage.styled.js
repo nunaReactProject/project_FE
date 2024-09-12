@@ -10,23 +10,9 @@ export const Searchbox = styled.div`
   text-align: center;
   width: 100%;
   background-color: #f6f6f6;
-  padding: 2rem 1rem;
+  padding: 1rem;
   margin: 20px auto;
   box-sizing: border-box;
-  & > form {
-    margin: 20px auto;
-  }
-  & > form > input {
-    margin-right: 5px;
-    border: none;
-    border-bottom: 1px solid #999;
-    width: 330px;
-    height: 28px;
-    background: transparent;
-    &:focus {
-      outline: none; /* 포커스 시 기본 보더 제거 */
-    }
-  }
 `;
 export const TicketUl = styled.ul`
   display: flex;
@@ -41,7 +27,7 @@ export const TicketLi = styled.li`
   box-sizing: border-box;
   justify-content: space-between;
   align-items: center;
-  column-gap: 10px;
+  column-gap: 5x;
   grid-template-columns: 110px 1fr auto;
   border-bottom: 1px solid lightgrey;
   &:last-child {
@@ -58,38 +44,18 @@ export const Button = styled.button`
   color: #333;
   margin-right: 5px;
   margin-bottom: 5px;
-  padding: 10px 15px;
+  padding: 10px 20px;
   border-radius: 5px;
   border: 1px solid #ccc;
   box-sizing: border-box;
   cursor: pointer;
 
   &.on {
-    background-color: #7848ca;
-    color: #fff;
-    font-weight: 800;
-  }
-
-  &:hover {
-    border: 2px solid #7848ca;
+    background-color: green; // 'on' 클래스가 있을 때의 배경색
   }
 `;
 
-export const Tickettxt = styled.div`
-  line-height: 1.5;
-  word-break: keep-all;
-  font-size: 1.1rem;
-  font-weight: 600;
-  .ticket_place {
-    font-weight: 500;
-    font-size: 14px;
-  }
-  .ticket_period {
-    font-weight: 400;
-    font-size: 14px;
-    color: #333;
-  }
-`;
+export const Tickettxt = styled.div``;
 
 export const Ticketbtn = styled.div``;
 export const Maincontent = styled.div`
@@ -97,10 +63,7 @@ export const Maincontent = styled.div`
   box-sizing: border-box;
   justify-content: space-between;
   column-gap: 10px;
-  grid-template-columns: 300px 1fr;
-  .data_plus_btn {
-    width: 100%;
-  }
+  grid-template-columns: 300px auto;
 `;
 
 export const Filterbox = styled.div`
@@ -113,12 +76,6 @@ export const Filterbox = styled.div`
   width: 100%;
   flex-direction: column;
 
-  h2 {
-    margin-bottom: 10px;
-  }
-  label {
-    margin-right: 10px;
-  }
   & > div {
     padding: 1rem 0;
     border-bottom: 1px solid lightgrey;

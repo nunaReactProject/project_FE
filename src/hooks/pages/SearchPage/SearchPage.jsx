@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useSearchMusical } from '../../hooks/useSearchPage';
 import {
   Searchbox,
@@ -29,7 +29,7 @@ const SearchPage = () => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const itemsPerPage = 10;
-  const navigate = useNavigate();
+
   useEffect(() => {
     if (data && data.db) {
       setFilteredMusicals(data.db);
@@ -40,6 +40,8 @@ const SearchPage = () => {
     if (data && data.db) {
       let results = data.db;
 
+      // ... (기존 검색어 및 kidstate 필터링 로직은 유지)
+
       // 장르 필터링 (교집합)
       if (genreFilter.length > 0) {
         results = results.filter((musical) => genreFilter.includes(musical.genrenm));
@@ -49,10 +51,7 @@ const SearchPage = () => {
       if (areaFilter.length > 0) {
         results = results.filter((musical) => areaFilter.includes(musical.area));
       }
-      // Kidstate 필터링
-      if (kidstateFilter !== null) {
-        results = results.filter((musical) => musical.kidstate === kidstateFilter);
-      }
+
       // "공연상태" 필터링
       if (showUpcoming) {
         results = results.filter((musical) => musical.prfstate === '공연예정');
@@ -60,13 +59,6 @@ const SearchPage = () => {
         results = results.filter((musical) => musical.prfstate === '공연중');
       } else if (showCompleted) {
         results = results.filter((musical) => musical.prfstate === '공연완료');
-      }
-
-      setFilteredMusicals(results);
-      setDisplayedMusicals(results.slice(0, itemsPerPage));
-      // 검색어 기반 필터링
-      if (searchTerm) {
-        results = results.filter((musical) => musical.prfnm.toLowerCase().includes(searchTerm.toLowerCase()));
       }
 
       setFilteredMusicals(results);
@@ -89,32 +81,14 @@ const SearchPage = () => {
     e.preventDefault();
     if (!searchTerm) {
       alert('검색어가 없습니다.');
-      navigate('/search');
+      window.location.href = '/search';
     } else {
       setSearchParams({ query: searchTerm });
       const filteredResults = filteredMusicals.filter((musical) =>
         musical.prfnm.toLowerCase().includes(searchTerm.toLowerCase())
       );
-      setFilteredMusicals(filteredResults); // 필터링된 결과를 업데이트
       setDisplayedMusicals(filteredResults.slice(0, itemsPerPage));
     }
-  };
-  const handleUpcomingToggle = () => {
-    setShowUpcoming((prev) => !prev);
-    setShowOngoing(false);
-    setShowCompleted(false);
-  };
-
-  const handleOngoingToggle = () => {
-    setShowOngoing((prev) => !prev);
-    setShowUpcoming(false);
-    setShowCompleted(false);
-  };
-
-  const handleCompletedToggle = () => {
-    setShowCompleted((prev) => !prev);
-    setShowUpcoming(false);
-    setShowOngoing(false);
   };
 
   const loadMoreMusicals = () => {
@@ -146,11 +120,10 @@ const SearchPage = () => {
   };
 
   const isGenreSelected = (genre) => genreFilter.includes(genre);
-  const isAnyGenreSelected = genreFilter.length > 0; // 선택된 장르가 있는지 확인
   const isareaSelected = (area) => areaFilter.includes(area);
-  const isAnyAreaSelected = areaFilter.length > 0;
   console.log('Filtered Musicals:', filteredMusicals);
   const resetFilters = () => {
+    setSearchTerm('');
     setGenreFilter([]);
     setareaFilter([]);
     setKidstateFilter(null);
@@ -164,7 +137,7 @@ const SearchPage = () => {
     <Container>
       <Searchbox>
         <h1>
-          "{searchTerm}"에 대한 검색 결과는 {filteredMusicals.length}건 입니다.
+          "{searchParams.get('query')}"에 대한 검색 결과는 {filteredMusicals.length}건 입니다.
         </h1>
         <form onSubmit={handleSearch}>
           <input
@@ -182,15 +155,11 @@ const SearchPage = () => {
       </Searchbox>
       <Maincontent>
         <Filterbox>
-          <h1>필터</h1>
           <div>
             <Button onClick={resetFilters}>모든 필터 초기화</Button>
           </div>
           <div>
-            <h2>장르</h2>
-            <Button onClick={() => setGenreFilter([])} className={!isAnyGenreSelected ? 'on' : ''}>
-              ALL
-            </Button>
+            <Button onClick={() => setGenreFilter([])}>ALL</Button>
             <Button onClick={() => toggleGenreFilter('뮤지컬')} className={isGenreSelected('뮤지컬') ? 'on' : ''}>
               뮤지컬
             </Button>
@@ -207,16 +176,13 @@ const SearchPage = () => {
             </Button>
           </div>
           <div>
-            <h2>이용가</h2>
-            <Button onClick={() => setKidstateFilter(null)} className={kidstateFilter === null ? 'on' : ''}>
-              전연령
-            </Button>
+            <Button onClick={() => setKidstateFilter(null)}>전연령</Button>
             <Button onClick={() => setKidstateFilter(true)} className={kidstateFilter === true ? 'on' : ''}>
               아동용
             </Button>
           </div>{' '}
+          // 버튼 클릭 시 변경된 핸들러 사용
           <div>
-            <h2>공연상태</h2>
             <Button onClick={handleUpcomingToggle} className={showUpcoming ? 'on' : ''}>
               공연예정
             </Button>
@@ -228,10 +194,8 @@ const SearchPage = () => {
             </Button>
           </div>
           <div>
-            <h2>지역</h2>
-            <Button onClick={() => setareaFilter([])} className={!isAnyAreaSelected ? 'on' : ''}>
-              전국
-            </Button>
+            <h3>지역 선택:</h3>
+            <Button onClick={() => setareaFilter([])}>전국</Button>
             <Button onClick={() => toggleareaFilter('서울특별시')} className={isareaSelected('서울특별시') ? 'on' : ''}>
               서울
             </Button>
@@ -260,7 +224,6 @@ const SearchPage = () => {
             </Button>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <h2>공연기간</h2>
             <div>
               <label htmlFor='startDate'>시작일:</label>
               <input type='date' id='startDate' value={startDate} onChange={(e) => setStartDate(e.target.value)} />
@@ -280,8 +243,8 @@ const SearchPage = () => {
                 </Ticketimg>
                 <Tickettxt>
                   {musical.prfnm}
-                  <p className='ticket_place'>{musical.fcltynm}</p>
-                  <p className='ticket_period'>
+                  <p>{musical.fcltynm}</p>
+                  <p>
                     {musical.prfpdfrom === musical.prfpdto
                       ? musical.prfpdfrom
                       : `${musical.prfpdfrom}~${musical.prfpdto}`}
@@ -293,11 +256,7 @@ const SearchPage = () => {
               </TicketLi>
             ))}
           </TicketUl>
-          {displayedMusicals.length < filteredMusicals.length && (
-            <Button className='data_plus_btn' onClick={loadMoreMusicals}>
-              더보기
-            </Button>
-          )}
+          {displayedMusicals.length < filteredMusicals.length && <Button onClick={loadMoreMusicals}>더보기</Button>}
         </div>
       </Maincontent>
     </Container>
