@@ -4,11 +4,13 @@ import Mainpage from './../pages/Mainpage/Mainpage';
 import Header from '../components/common/Header/Header';
 import Footer from '../components/common/Footer/Footer';
 import AllProductPage from '../pages/AllProductPage/AllProductPage';
+import Nav from '../components/common/Nav/Nav';
 
 export default function Router() {
   return (
     <>
       <Header />
+      <Nav />
       <Routes>
         <Route path='/' element={<Mainpage />} />
         <Route path='/all' element={<AllProductPage />} />
