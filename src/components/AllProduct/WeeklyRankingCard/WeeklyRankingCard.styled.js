@@ -1,5 +1,15 @@
 import styled from 'styled-components';
 
+export const ProductList = styled.section`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+  max-width: 1120px;
+  justify-content: space-between;
+  margin-top: 20px;
+`;
+
 export const ProductItem = styled.li`
   list-style: none;
   margin-bottom: 20px;
