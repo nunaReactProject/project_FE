@@ -14,7 +14,7 @@ const TicketOpen = () => {
           <a href='#'>전체보기</a>
         </to.TicketOpenHeader>
         <to.TicketOpenBox>
-          {data?.dbs.db.map((item, index) => (
+          {data?.dbs?.db.map((item, index) => (
             <to.TicketOpenItem key={index}>
               <to.TicketOpenImgBox>
                 <img src={item.poster} alt={item.prfnm} />
