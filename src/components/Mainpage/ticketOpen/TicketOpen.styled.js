@@ -8,6 +8,7 @@ export const TicketOpenContainer = styled.div`
 export const TicketOpenWrap = styled.div`
   margin: 90px;
   width: 1120px;
+  height: 331px;
 `;
 
 export const TicketOpenHeader = styled.div`
