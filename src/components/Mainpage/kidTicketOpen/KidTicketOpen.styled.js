@@ -3,11 +3,11 @@ import styled from 'styled-components';
 export const KidTicketOpenContainer = styled.div`
   display: flex;
   justify-content: center;
+  height: 450px;
 `;
 
 export const KidTicketOpenWrap = styled.div`
   width: 1120px;
-  height: 331px;
 `;
 
 export const KidTicketOpenHeader = styled.div`
