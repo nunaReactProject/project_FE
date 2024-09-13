@@ -6,6 +6,7 @@ import RankingPeriod from '../../components/AllProduct/RankingPeriod/RankingPeri
 import GenreRanking from '../../components/AllProduct/GenreRanking/GenreRanking';
 import LocationRanking from '../../components/AllProduct/LocationRanking/LocationRanking';
 import * as S from './AllProductPage.styled.js';
+import WeeklyRanking from '../../components/AllProduct/WeeklyRanking/WeeklyRanking.jsx';
 
 export default function AllProductPage() {
   const today = new Date();
@@ -14,8 +15,8 @@ export default function AllProductPage() {
 
   const [ststype, setStstype] = useState('day');
   const [date, setDate] = useState(initialFormattedDate);
-  const [catecode, setCatecode] = useState('GGGA');
-  const [area, setArea] = useState(11);
+  const [catecode, setCatecode] = useState('');
+  const [area, setArea] = useState();
   const [activeRanking, setActiveRanking] = useState('genre');
 
   const { data, isLoading, error } = useRankProductQuery({ ststype, date, catecode, area });
@@ -50,6 +51,7 @@ export default function AllProductPage() {
 
   return (
     <S.RankingContainer>
+      <WeeklyRanking ststype={'week'} date={date} />
       <S.RankingTab>
         <S.Title onClick={GenreClick}>장르별랭킹 |</S.Title>
         <S.Title onClick={LocationClick}>지역별랭킹</S.Title>
