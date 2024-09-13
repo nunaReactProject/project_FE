@@ -1,266 +1,228 @@
-import React, { useState, useEffect } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import { useSearchMusical } from '../../hooks/useSearchPage';
 import {
-  Searchbox,
+  Button,
   Container,
+  Searchbox,
+  Filterbox,
+  Maincontent,
   TicketUl,
   TicketLi,
   Ticketimg,
   Ticketbtn,
-  Tickettxt,
-  Button,
-  Maincontent,
-  Filterbox
+  Tickettxt
 } from './SearchPage.styled';
 
 const SearchPage = () => {
-  const { data } = useSearchMusical();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [searchTerm, setSearchTerm] = useState(searchParams.get('query') || '');
-  const [filteredMusicals, setFilteredMusicals] = useState([]);
-  const [displayedMusicals, setDisplayedMusicals] = useState([]);
-  const [genreFilter, setGenreFilter] = useState([]);
-  const [areaFilter, setareaFilter] = useState([]);
-  const [kidstateFilter, setKidstateFilter] = useState(null);
-  const [showUpcoming, setShowUpcoming] = useState(false); // "공연예정" 필터 상태
-  const [showOngoing, setShowOngoing] = useState(false);
-  const [showCompleted, setShowCompleted] = useState(false);
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const itemsPerPage = 10;
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (data && data.db) {
-      setFilteredMusicals(data.db);
-    }
-  }, [data]);
+  const [key, setKey] = useState('');
+  const [submittedKey, setSubmittedKey] = useState('');
+  const [regionCodes, setRegionCodes] = useState(['11']);
+  const [stateCodes, setStateCodes] = useState(['01', '02']);
+  const [categoryCodes, setCategoryCodes] = useState(['']);
+  const [shouldFetch, setShouldFetch] = useState(false);
+  const [page, setPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [startDate, setStartDate] = useState(''); // 시작일 상태 추가
+  const [endDate, setEndDate] = useState(''); // 종료일 상태 추가
+  const [kindMoad, setKindMoad] = useState('N'); // 아동용 상태 추가
+  const [sortOption, setSortOption] = useState('showAllMusicals'); // 정렬 옵션 추가
 
-  useEffect(() => {
-    if (data && data.db) {
-      let results = data.db;
-
-      // 장르 필터링 (교집합)
-      if (genreFilter.length > 0) {
-        results = results.filter((musical) => genreFilter.includes(musical.genrenm));
-      }
-
-      // 지역 필터링 (교집합)
-      if (areaFilter.length > 0) {
-        results = results.filter((musical) => areaFilter.includes(musical.area));
-      }
-      // Kidstate 필터링
-      if (kidstateFilter !== null) {
-        results = results.filter((musical) => musical.kidstate === kidstateFilter);
-      }
-      // "공연상태" 필터링
-      if (showUpcoming) {
-        results = results.filter((musical) => musical.prfstate === '공연예정');
-      } else if (showOngoing) {
-        results = results.filter((musical) => musical.prfstate === '공연중');
-      } else if (showCompleted) {
-        results = results.filter((musical) => musical.prfstate === '공연완료');
-      }
-
-      setFilteredMusicals(results);
-      setDisplayedMusicals(results.slice(0, itemsPerPage));
-      // 검색어 기반 필터링
-      if (searchTerm) {
-        results = results.filter((musical) => musical.prfnm.toLowerCase().includes(searchTerm.toLowerCase()));
-      }
-
-      setFilteredMusicals(results);
-      setDisplayedMusicals(results.slice(0, itemsPerPage));
-    }
-  }, [
-    searchTerm,
-    genreFilter,
-    areaFilter,
-    kidstateFilter,
-    showUpcoming,
-    showCompleted,
-    showOngoing,
+  // 커스텀 훅 사용
+  const {
+    data = [],
+    error,
+    isLoading
+  } = useSearchMusical(
+    submittedKey,
+    kindMoad, // kindMoad 추가
+    regionCodes.join('|'),
+    stateCodes.join('|'),
+    categoryCodes.join('|'),
+    shouldFetch,
+    page,
+    itemsPerPage,
     startDate,
-    endDate,
-    data
-  ]);
+    endDate
+  );
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (!searchTerm) {
-      alert('검색어가 없습니다.');
-      navigate('/search');
-    } else {
-      setSearchParams({ query: searchTerm });
-      const filteredResults = filteredMusicals.filter((musical) =>
-        musical.prfnm.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setFilteredMusicals(filteredResults); // 필터링된 결과를 업데이트
-      setDisplayedMusicals(filteredResults.slice(0, itemsPerPage));
+  console.log(data);
+  const sortedData = () => {
+    const sorted = [...data]; // 데이터 복사
+    if (sortOption === 'startDate') {
+      return sorted.sort((a, b) => new Date(a.prfpdfrom) - new Date(b.prfpdfrom)); // 공연 시작일 기준 정렬
+    } else if (sortOption === 'endDate') {
+      return sorted.sort((a, b) => new Date(b.prfpdto) - new Date(a.prfpdto)); // 공연 종료일 기준 정렬
     }
-  };
-  const handleUpcomingToggle = () => {
-    setShowUpcoming((prev) => !prev);
-    setShowOngoing(false);
-    setShowCompleted(false);
+    return sorted; // 기본적으로 전체 보기
   };
 
-  const handleOngoingToggle = () => {
-    setShowOngoing((prev) => !prev);
-    setShowUpcoming(false);
-    setShowCompleted(false);
+  const categories = [
+    { code: '', name: '전체' },
+    { code: 'GGGA', name: '뮤지컬' },
+    { code: 'CCCD', name: '콘서트' },
+    { code: 'CCCA|CCCC', name: '클래식/국악' },
+    { code: 'BBBC|BBBR', name: '무용' },
+    { code: 'KID|EEEB', name: '아동/서커스/마술' },
+    { code: 'AAAA', name: '연극' }
+  ];
+
+  const regions = [
+    { code: '11', name: '서울' },
+    { code: '28|41', name: '경기/인천' },
+    { code: '30|36', name: '대전/세종' },
+    { code: '27|26|31', name: '대구/부산/울산' },
+    { code: '43|44|51', name: '충청/강원' },
+    { code: '45|46|29|47|48', name: '광주/전라/경상' },
+    { code: '50', name: '제주' }
+  ];
+
+  const states = [
+    { code: '01', name: '공연예정' },
+    { code: '02', name: '공연중' },
+    { code: '03', name: '공연완료' }
+  ];
+
+  const handleCategoryChange = (code) => {
+    setCategoryCodes((prevCodes) => {
+      if (prevCodes.includes(code)) {
+        return prevCodes.filter((categoryCode) => categoryCode !== code);
+      } else {
+        return [...prevCodes, code];
+      }
+    });
   };
 
-  const handleCompletedToggle = () => {
-    setShowCompleted((prev) => !prev);
-    setShowUpcoming(false);
-    setShowOngoing(false);
+  const handleRegionChange = (code) => {
+    setRegionCodes((prevCodes) => {
+      if (prevCodes.includes(code)) {
+        return prevCodes.filter((regionCode) => regionCode !== code);
+      } else {
+        return [...prevCodes, code];
+      }
+    });
   };
 
-  const loadMoreMusicals = () => {
-    const newMusicals = filteredMusicals.slice(displayedMusicals.length, displayedMusicals.length + itemsPerPage);
-    setDisplayedMusicals((prev) => [...prev, ...newMusicals]);
+  const handleStateChange = (code) => {
+    setStateCodes((prevCodes) => {
+      if (prevCodes.includes(code)) {
+        return prevCodes.filter((stateCode) => stateCode !== code);
+      } else {
+        return [...prevCodes, code];
+      }
+    });
   };
-
-  const sortByStartDate = () => {
-    const sortedMusicals = [...filteredMusicals].sort((a, b) => new Date(a.prfpdfrom) - new Date(b.prfpdfrom));
-    setFilteredMusicals(sortedMusicals);
-    setDisplayedMusicals(sortedMusicals.slice(0, itemsPerPage));
-  };
-  const sortByEndDate = () => {
-    const sortedMusicals = [...filteredMusicals].sort((a, b) => new Date(b.prfpdto) - new Date(a.prfpdto));
-    setFilteredMusicals(sortedMusicals);
-    setDisplayedMusicals(sortedMusicals.slice(0, itemsPerPage));
-  };
-
-  const showAllMusicals = () => {
-    setDisplayedMusicals(filteredMusicals);
-  };
-
-  const toggleGenreFilter = (genre) => {
-    setGenreFilter((prev) => (prev.includes(genre) ? prev.filter((g) => g !== genre) : [...prev, genre]));
-  };
-
-  const toggleareaFilter = (area) => {
-    setareaFilter((prev) => (prev.includes(area) ? prev.filter((r) => r !== area) : [...prev, area]));
-  };
-
-  const isGenreSelected = (genre) => genreFilter.includes(genre);
-  const isAnyGenreSelected = genreFilter.length > 0; // 선택된 장르가 있는지 확인
-  const isareaSelected = (area) => areaFilter.includes(area);
-  const isAnyAreaSelected = areaFilter.length > 0;
-  console.log('Filtered Musicals:', filteredMusicals);
   const resetFilters = () => {
-    setGenreFilter([]);
-    setareaFilter([]);
-    setKidstateFilter(null);
-    setShowUpcoming(false);
+    setRegionCodes(['11']);
+    setStateCodes(['01', '02']);
+    setCategoryCodes(['']);
+    setShouldFetch(false);
+    setPage(1);
     setStartDate('');
     setEndDate('');
-    setFilteredMusicals(data.db || []);
-    setDisplayedMusicals(data.db ? data.db.slice(0, itemsPerPage) : []);
+    setKindMoad('N');
   };
+  const resetRegions = () => {
+    setRegionCodes(['11']); // 지역 초기화
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!key.trim()) {
+      alert('검색어를 입력해 주세요.');
+      return; // 검색어가 없으면 함수를 종료
+    }
+    setSubmittedKey(key);
+    setShouldFetch(true);
+    setPage(1); // 페이지 초기화
+    setKey('');
+  };
+
+  const loadMore = () => {
+    setPage((prevPage) => prevPage + 1); // 페이지 증가
+  };
+
   return (
     <Container>
       <Searchbox>
-        <h1>
-          "{searchTerm}"에 대한 검색 결과는 {filteredMusicals.length}건 입니다.
-        </h1>
-        <form onSubmit={handleSearch}>
+        <p>
+          키워드 "{submittedKey}"에 대한 검색 결과는 {data.length}건입니다.
+        </p>
+        <form onSubmit={handleSubmit}>
           <input
             type='search'
-            placeholder='공연 제목 검색'
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)} // 검색어 업데이트
-            // onFocus={() => setSearchTerm('')} // 검색창 클릭 시 텍스트 지우기
+            placeholder='Search'
+            value={key}
+            onChange={(e) => setKey(e.target.value)} // 사용자 입력 업데이트
           />
           <Button type='submit'>검색</Button>
         </form>
-        <Button onClick={sortByStartDate}>공연 시작일 순으로 정렬</Button>
-        <Button onClick={sortByEndDate}>공연 종료일 순으로 정렬</Button>
-        <Button onClick={showAllMusicals}>전체 보기</Button>
       </Searchbox>
       <Maincontent>
+        <select onChange={(e) => setSortOption(e.target.value)} defaultValue='showAllMusicals'>
+          <option value='showAllMusicals'>전체 보기</option>
+          <option value='startDate'>공연 시작일 순으로 정렬</option>
+          <option value='endDate'>공연 종료일 순으로 정렬</option>
+        </select>
         <Filterbox>
-          <h1>필터</h1>
           <div>
-            <Button onClick={resetFilters}>모든 필터 초기화</Button>
+            <h2>카테고리</h2>
+            {categories.map((category) => (
+              <Button
+                key={category.code}
+                onClick={() => handleCategoryChange(category.code)}
+                isActive={categoryCodes.includes(category.code)} // isActive prop 추가
+              >
+                {category.name}
+              </Button>
+            ))}
           </div>
-          <div>
-            <h2>장르</h2>
-            <Button onClick={() => setGenreFilter([])} className={!isAnyGenreSelected ? 'on' : ''}>
-              ALL
-            </Button>
-            <Button onClick={() => toggleGenreFilter('뮤지컬')} className={isGenreSelected('뮤지컬') ? 'on' : ''}>
-              뮤지컬
-            </Button>
-            <Button onClick={() => toggleGenreFilter('연극')} className={isGenreSelected('연극') ? 'on' : ''}>
-              연극
-            </Button>
-            <Button onClick={() => toggleGenreFilter('대중음악')} className={isGenreSelected('대중음악') ? 'on' : ''}>
-              대중음악
-            </Button>
-            <Button
-              onClick={() => toggleGenreFilter('서양음악(클래식)')}
-              className={isGenreSelected('서양음악(클래식)') ? 'on' : ''}>
-              클래식
-            </Button>
-          </div>
-          <div>
-            <h2>이용가</h2>
-            <Button onClick={() => setKidstateFilter(null)} className={kidstateFilter === null ? 'on' : ''}>
-              전연령
-            </Button>
-            <Button onClick={() => setKidstateFilter(true)} className={kidstateFilter === true ? 'on' : ''}>
-              아동용
-            </Button>
-          </div>{' '}
-          <div>
-            <h2>공연상태</h2>
-            <Button onClick={handleUpcomingToggle} className={showUpcoming ? 'on' : ''}>
-              공연예정
-            </Button>
-            <Button onClick={handleOngoingToggle} className={showOngoing ? 'on' : ''}>
-              공연중
-            </Button>
-            <Button onClick={handleCompletedToggle} className={showCompleted ? 'on' : ''}>
-              공연완료
-            </Button>
-          </div>
+
+          {/* 지역 버튼들 */}
           <div>
             <h2>지역</h2>
-            <Button onClick={() => setareaFilter([])} className={!isAnyAreaSelected ? 'on' : ''}>
-              전국
-            </Button>
-            <Button onClick={() => toggleareaFilter('서울특별시')} className={isareaSelected('서울특별시') ? 'on' : ''}>
-              서울
-            </Button>
-            <Button onClick={() => toggleareaFilter('강원도')} className={isareaSelected('강원도') ? 'on' : ''}>
-              강원
-            </Button>
-            <Button onClick={() => toggleareaFilter('경기도')} className={isareaSelected('경기도') ? 'on' : ''}>
-              경기
-            </Button>
-            <Button onClick={() => toggleareaFilter('전라북도')} className={isareaSelected('전라북도') ? 'on' : ''}>
-              전북
-            </Button>
-            <Button onClick={() => toggleareaFilter('전라남도')} className={isareaSelected('전라남도') ? 'on' : ''}>
-              전남
-            </Button>
-            <Button onClick={() => toggleareaFilter('경상북도')} className={isareaSelected('경상북도') ? 'on' : ''}>
-              경북
-            </Button>
-            <Button onClick={() => toggleareaFilter('경상남도')} className={isareaSelected('경상남도') ? 'on' : ''}>
-              경남
+            <Button onClick={resetRegions}>전체</Button>
+            {regions.map((region) => (
+              <Button
+                key={region.code}
+                onClick={() => handleRegionChange(region.code)}
+                isActive={regionCodes.includes(region.code)} // isActive prop 추가
+              >
+                {region.name}
+              </Button>
+            ))}
+          </div>
+
+          {/* 공연 상태 버튼들 */}
+          <div>
+            <h2>공연 상태</h2>
+            {states.map((state) => (
+              <Button
+                key={state.code}
+                onClick={() => handleStateChange(state.code)}
+                isActive={stateCodes.includes(state.code)} // isActive prop 추가
+              >
+                {state.name}
+              </Button>
+            ))}
+          </div>
+
+          {/* 아동용 필터 추가 */}
+          <div>
+            <h2>아동용 필터</h2>
+            <Button
+              onClick={() => setKindMoad('Y')}
+              isActive={kindMoad === 'Y'} // isActive prop 추가
+            >
+              아동
             </Button>
             <Button
-              onClick={() => toggleareaFilter('제주특별자치도')}
-              className={isareaSelected('제주특별자치도') ? 'on' : ''}>
-              제주
+              onClick={() => setKindMoad('N')}
+              isActive={kindMoad === 'N'} // isActive prop 추가
+            >
+              일반
             </Button>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <h2>공연기간</h2>
+          <div className='data_area'>
             <div>
               <label htmlFor='startDate'>시작일:</label>
               <input type='date' id='startDate' value={startDate} onChange={(e) => setStartDate(e.target.value)} />
@@ -270,32 +232,43 @@ const SearchPage = () => {
               <input type='date' id='endDate' value={endDate} onChange={(e) => setEndDate(e.target.value)} />
             </div>
           </div>
+          <div>
+            {' '}
+            {/* 초기화 버튼 추가 */}
+            <Button onClick={resetFilters}>초기화</Button>
+          </div>
         </Filterbox>
+        {isLoading && <p>로딩 중...</p>}
+        {error && <p style={{ color: 'red' }}>{error.message}</p>}{' '}
         <div>
           <TicketUl>
-            {displayedMusicals.map((musical, index) => (
-              <TicketLi key={index}>
-                <Ticketimg>
-                  <img src={musical.poster} style={{ width: '110px', height: '134px' }} alt='포스터' />
-                </Ticketimg>
-                <Tickettxt>
-                  {musical.prfnm}
-                  <p className='ticket_place'>{musical.fcltynm}</p>
-                  <p className='ticket_period'>
-                    {musical.prfpdfrom === musical.prfpdto
-                      ? musical.prfpdfrom
-                      : `${musical.prfpdfrom}~${musical.prfpdto}`}
-                  </p>
-                </Tickettxt>
-                <Ticketbtn>
-                  <Button>예매하기</Button>
-                </Ticketbtn>
-              </TicketLi>
-            ))}
+            {Array.isArray(data) ? (
+              sortedData()
+                .slice(0, page * itemsPerPage)
+                .map((item, index) => (
+                  <TicketLi key={index}>
+                    <Ticketimg>
+                      <img src={item.poster} style={{ width: '110px', height: '134px' }} alt='포스터' />
+                    </Ticketimg>
+                    <Tickettxt>
+                      {item.prfnm}
+                      <p className='ticket_place'>{item.fcltynm}</p>
+                      <p className='ticket_period'>
+                        {item.prfpdfrom === item.prfpdto ? item.prfpdfrom : `${item.prfpdfrom}~${item.prfpdto}`}
+                      </p>
+                    </Tickettxt>
+                    <Ticketbtn>
+                      <Button>예매하기</Button>
+                    </Ticketbtn>
+                  </TicketLi>
+                ))
+            ) : (
+              <p>결과가 없습니다.</p>
+            )}
           </TicketUl>
-          {displayedMusicals.length < filteredMusicals.length && (
-            <Button className='data_plus_btn' onClick={loadMoreMusicals}>
-              더보기
+          {data.length > page * itemsPerPage && (
+            <Button className='data_plus_btn' onClick={loadMore}>
+              더 보기
             </Button>
           )}
         </div>

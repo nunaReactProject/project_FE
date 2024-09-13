@@ -54,8 +54,8 @@ export const Ticketimg = styled.div`
 `;
 
 export const Button = styled.button`
-  background-color: #fff;
-  color: #333;
+  background-color: ${({ isActive }) => (isActive ? '#7848ca' : 'white')};
+  color: ${({ isActive }) => (isActive ? 'white' : 'black')};
   margin-right: 5px;
   margin-bottom: 5px;
   padding: 10px 15px;
@@ -63,12 +63,6 @@ export const Button = styled.button`
   border: 1px solid #ccc;
   box-sizing: border-box;
   cursor: pointer;
-
-  &.on {
-    background-color: #7848ca;
-    color: #fff;
-    font-weight: 800;
-  }
 
   &:hover {
     border: 2px solid #7848ca;
@@ -98,12 +92,17 @@ export const Maincontent = styled.div`
   justify-content: space-between;
   column-gap: 10px;
   grid-template-columns: 300px 1fr;
+  select {
+    justify-self: right;
+    height: 20px;
+  }
   .data_plus_btn {
     width: 100%;
   }
 `;
 
 export const Filterbox = styled.div`
+  grid-row: 1/3;
   border: 1px solid #ccc;
   display: flex;
   box-sizing: border-box;
@@ -118,6 +117,10 @@ export const Filterbox = styled.div`
   }
   label {
     margin-right: 10px;
+  }
+  .data_area {
+    display: flex;
+    flex-direction: column;
   }
   & > div {
     padding: 1rem 0;
