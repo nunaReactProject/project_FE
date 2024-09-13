@@ -2,9 +2,8 @@ import styled from 'styled-components';
 import { CiSearch } from 'react-icons/ci';
 
 export const Container = styled.div`
-  max-width: 1120px;
+  width: 1120px;
   display: flex;
-  align-items: center;
   margin: auto;
   padding: 18px 0;
 `;
