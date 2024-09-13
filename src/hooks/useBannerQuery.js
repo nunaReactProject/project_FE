@@ -10,6 +10,7 @@ export const useBannerQuery = () => {
   return useQuery({
     queryKey: ['banner'],
     queryFn: fetchBanner,
+    refetchOnWindowFocus: false,
     select: (result) => result.dbs
   });
 };

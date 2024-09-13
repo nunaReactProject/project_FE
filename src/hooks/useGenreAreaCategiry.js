@@ -23,6 +23,7 @@ export const useGenreRank = ({ ststype, date, catecode }) => {
   return useQuery({
     queryKey: ['boxoffice', { ststype, date, catecode }],
     queryFn: () => fetchGenreRank({ ststype, date, catecode }),
+    refetchOnWindowFocus: false,
     select: (response) => response
   });
 };
@@ -43,6 +44,7 @@ export const useAreaRank = ({ ststype, date, area }) => {
   return useQuery({
     queryKey: ['boxoffice', { ststype, date, area }],
     queryFn: () => fetchAreaRank({ ststype, date, area }),
+    refetchOnWindowFocus: false,
     select: (response) => response
   });
 };
