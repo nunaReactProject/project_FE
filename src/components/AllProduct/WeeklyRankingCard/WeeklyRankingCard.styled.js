@@ -1,3 +1,5 @@
+// WeeklyRankingCard.styled.js
+
 import styled from 'styled-components';
 
 export const ProductList = styled.section`
@@ -23,6 +25,7 @@ export const ProductImgContainer = styled.div`
   border-radius: 10px;
   position: relative;
   overflow: hidden;
+  transition: transform 0.3s;
 `;
 
 export const ProductImg = styled.img`
@@ -30,6 +33,11 @@ export const ProductImg = styled.img`
   height: 100%;
   object-fit: cover;
   border-radius: 10px;
+  transition: transform 0.3s;
+
+  ${ProductImgContainer}:hover & {
+    transform: scale(1.05);
+  }
 `;
 
 export const ProductRank = styled.span`

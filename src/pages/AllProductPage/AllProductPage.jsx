@@ -19,6 +19,8 @@ export default function AllProductPage() {
   const [area, setArea] = useState();
   const [activeRanking, setActiveRanking] = useState('genre');
 
+  const weeklyDate = format(today, 'yyyyMMdd');
+
   const { data, isLoading, error } = useRankProductQuery({ ststype, date, catecode, area });
 
   useEffect(() => {
@@ -51,10 +53,15 @@ export default function AllProductPage() {
 
   return (
     <S.RankingContainer>
-      <WeeklyRanking ststype={'week'} date={date} />
+      <WeeklyRanking ststype={'week'} date={weeklyDate} />
       <S.RankingTab>
-        <S.Title onClick={GenreClick}>장르별랭킹 |</S.Title>
-        <S.Title onClick={LocationClick}>지역별랭킹</S.Title>
+        <S.Title onClick={GenreClick} isActive={activeRanking === 'genre'}>
+          장르별랭킹
+        </S.Title>
+        <S.TitleBar>|</S.TitleBar>
+        <S.Title onClick={LocationClick} isActive={activeRanking === 'location'}>
+          지역별랭킹
+        </S.Title>
       </S.RankingTab>
       <S.TypeRanking>
         {activeRanking === 'genre' && <GenreRanking setCatecode={setCatecode} catecode={catecode} />}

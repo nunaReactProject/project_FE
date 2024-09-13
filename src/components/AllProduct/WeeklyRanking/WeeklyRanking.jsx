@@ -8,7 +8,6 @@ const WeeklyRanking = ({ ststype, date, catecode = '', area = '' }) => {
   const canvasRef = useRef(null);
   const [bgColor, setBgColor] = useState('');
   const [colorCache, setColorCache] = useState({});
-  console.log(colorCache);
 
   const getAverageColor = (imageUrl) => {
     const canvas = canvasRef.current;
