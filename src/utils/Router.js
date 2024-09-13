@@ -7,6 +7,7 @@ import Login from '../pages/Login/Login';
 import AllProductPage from '../pages/AllProductPage/AllProductPage';
 import Nav from '../components/common/Nav/Nav';
 import * as S from './Router.styled';
+import Register from '../pages/Register/Register';
 
 export default function Router() {
   return (
@@ -17,6 +18,7 @@ export default function Router() {
         <Routes>
           <Route path='/' element={<Mainpage />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
           <Route path='/all' element={<AllProductPage />} />
         </Routes>
       </S.Content>
