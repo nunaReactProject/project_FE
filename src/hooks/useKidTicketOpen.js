@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { productOpenApi } from '../Api';
 import { XMLParser } from 'fast-xml-parser';
 
-const fetchTicketOpen = async () => {
+const fetchKidTicketOpen = async () => {
   const getFormattedDate = (date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -13,15 +13,19 @@ const fetchTicketOpen = async () => {
   const currentDate = new Date();
   const yesterdayDate = new Date();
   yesterdayDate.setDate(currentDate.getDate() - 1);
+
   const formattedYesterdayDate = getFormattedDate(yesterdayDate);
 
-  let response = await productOpenApi({
+  // 첫 번째 API 요청
+  const response = await productOpenApi({
     method: 'get',
     url: '/pblprfr',
     params: {
+      stdate: formattedYesterdayDate,
       cpage: 1,
       rows: 5,
-      prfstate: '02'
+      prfstate: '02',
+      kidstate: 'Y'
     }
   });
   const parser = new XMLParser();
@@ -29,10 +33,10 @@ const fetchTicketOpen = async () => {
   return jsonData;
 };
 
-export const useTicketOpenQuery = () => {
+export const useKidTicketOpenQuery = () => {
   return useQuery({
-    queryKey: ['ticket-open'],
-    queryFn: fetchTicketOpen,
+    queryKey: ['kid-ticket-open'],
+    queryFn: fetchKidTicketOpen,
     refetchOnWindowFocus: false,
     select: (result) => result
   });
