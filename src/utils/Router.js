@@ -6,18 +6,21 @@ import Footer from '../components/common/Footer/Footer';
 import Login from '../pages/Login/Login';
 import AllProductPage from '../pages/AllProductPage/AllProductPage';
 import Nav from '../components/common/Nav/Nav';
+import * as S from './Router.styled';
 
 export default function Router() {
   return (
-    <>
+    <S.PageContainer>
       <Header />
       <Nav />
-      <Routes>
-        <Route path='/' element={<Mainpage />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/all' element={<AllProductPage />} />
-      </Routes>
+      <S.Content>
+        <Routes>
+          <Route path='/' element={<Mainpage />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/all' element={<AllProductPage />} />
+        </Routes>
+      </S.Content>
       <Footer />
-    </>
+    </S.PageContainer>
   );
 }
