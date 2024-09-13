@@ -27,3 +27,13 @@ export const SubHeaderRanking = styled.h2`
   font-weight: normal;
   color: white;
 `;
+
+export const ProductList = styled.span`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+  max-width: 1120px;
+  justify-content: space-between;
+  margin-top: 20px;
+`;
