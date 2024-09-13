@@ -16,7 +16,7 @@ import {
 const SearchPage = () => {
   const [key, setKey] = useState('');
   const [submittedKey, setSubmittedKey] = useState('');
-  const [regionCodes, setRegionCodes] = useState(['11']);
+  const [regionCodes, setRegionCodes] = useState(['']);
   const [stateCodes, setStateCodes] = useState(['01', '02']);
   const [categoryCodes, setCategoryCodes] = useState(['']);
   const [shouldFetch, setShouldFetch] = useState(false);
@@ -57,7 +57,6 @@ const SearchPage = () => {
   };
 
   const categories = [
-    { code: '', name: '전체' },
     { code: 'GGGA', name: '뮤지컬' },
     { code: 'CCCD', name: '콘서트' },
     { code: 'CCCA|CCCC', name: '클래식/국악' },
@@ -84,11 +83,11 @@ const SearchPage = () => {
 
   const handleCategoryChange = (code) => {
     setCategoryCodes((prevCodes) => {
+      // 선택된 카테고리의 추가 또는 제거
       if (prevCodes.includes(code)) {
         return prevCodes.filter((categoryCode) => categoryCode !== code);
-      } else {
-        return [...prevCodes, code];
       }
+      return [...prevCodes, code];
     });
   };
 
@@ -120,9 +119,6 @@ const SearchPage = () => {
     setStartDate('');
     setEndDate('');
     setKindMoad('N');
-  };
-  const resetRegions = () => {
-    setRegionCodes(['11']); // 지역 초기화
   };
 
   const handleSubmit = (e) => {
@@ -158,11 +154,6 @@ const SearchPage = () => {
         </form>
       </Searchbox>
       <Maincontent>
-        <select onChange={(e) => setSortOption(e.target.value)} defaultValue='showAllMusicals'>
-          <option value='showAllMusicals'>전체 보기</option>
-          <option value='startDate'>공연 시작일 순으로 정렬</option>
-          <option value='endDate'>공연 종료일 순으로 정렬</option>
-        </select>
         <Filterbox>
           <div>
             <h2>카테고리</h2>
@@ -180,7 +171,6 @@ const SearchPage = () => {
           {/* 지역 버튼들 */}
           <div>
             <h2>지역</h2>
-            <Button onClick={resetRegions}>전체</Button>
             {regions.map((region) => (
               <Button
                 key={region.code}
@@ -235,12 +225,19 @@ const SearchPage = () => {
           <div>
             {' '}
             {/* 초기화 버튼 추가 */}
-            <Button onClick={resetFilters}>초기화</Button>
+            <Button onClick={resetFilters} style={{ width: '100%' }}>
+              초기화
+            </Button>
           </div>
         </Filterbox>
-        {isLoading && <p>로딩 중...</p>}
-        {error && <p style={{ color: 'red' }}>{error.message}</p>}{' '}
-        <div>
+        <div style={{ display: 'grid', gridTemplateRows: '20px auto' }}>
+          {isLoading && <p>로딩 중...</p>}
+          {error && <p style={{ color: 'red' }}>{error.message}</p>}{' '}
+          <select onChange={(e) => setSortOption(e.target.value)} defaultValue='showAllMusicals'>
+            <option value='showAllMusicals'>전체 보기</option>
+            <option value='startDate'>공연 시작일 순으로 정렬</option>
+            <option value='endDate'>공연 종료일 순으로 정렬</option>
+          </select>
           <TicketUl>
             {Array.isArray(data) ? (
               sortedData()
