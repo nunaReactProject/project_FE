@@ -73,13 +73,13 @@ export const FullPerformanceTitle = styled.p`
 `;
 
 export const FullPerformanceDate = styled.p`
-  margin-top: 10px;
+  margin-top: 5px;
   font-size: 14px;
   color: #62676c;
 `;
 
 export const FullPerformanceLocation = styled.p`
-  margin-top: 10px;
+  margin-top: 5px;
   font-size: 14px;
   color: #62676c;
 `;

@@ -24,7 +24,6 @@ const FullPerformanceComponent = () => {
         </fp.FullPerformanceHeader>
         <fp.FullPerformanceBox>
           {data?.dbs.db.map((item, index) => {
-            console.log(item);
             return (
               <fp.FullPerformanceItem key={index} onClick={() => onNavigateDetailPage(item.mt20id)}>
                 <fp.FullPerformanceImgBox>
