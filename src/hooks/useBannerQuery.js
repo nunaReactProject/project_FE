@@ -3,7 +3,8 @@ import axios from 'axios';
 
 const fetchBanner = async () => {
   const response = await axios.get('/data.json');
-  return response.data;
+
+  return response;
 };
 
 export const useBannerQuery = () => {
@@ -11,6 +12,6 @@ export const useBannerQuery = () => {
     queryKey: ['banner'],
     queryFn: fetchBanner,
     refetchOnWindowFocus: false,
-    select: (result) => result.dbs
+    select: (result) => result.data.banner
   });
 };

@@ -1,74 +1,51 @@
 import styled from 'styled-components';
 
 export const BannerContainer = styled.div`
-  width: 100% !important;
-  height: 560px !important;
-  display: flex !important;
-  justify-content: center !important;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
   cursor: pointer;
-  background-color: ${(props) => props.bgColor} !important;
-  color: ${(props) => {
-    switch (props.bgColor) {
-      case '#f7f7f7':
-        return 'black';
-      default:
-        return 'white';
-    }
-  }} !important;
-`;
-
-export const BannerWrap = styled.div`
-  width: 1120px !important;
-  height: inherit !important;
-  display: flex !important;
 `;
 
 export const BannerContent = styled.div`
-  width: 55% !important;
-  margin: 70px 0 !important;
-  font-weight: 700 !important;
+  font-weight: 700;
   position: relative;
 `;
 
-export const BannerImg = styled.img`
-  width: 45% !important;
-  height: inherit;
-`;
+export const BannerImg = styled.img``;
 
 export const BannerCategory = styled.p`
-  font-size: 17px !important;
+  font-size: 17px;
 `;
 
 export const BannerTitle = styled.h1`
-  margin: 13px 0 40px 0 !important;
-  font-size: 45px !important;
-  line-height: 1.4;
+  font-size: 45px;
 `;
 
 export const BannerPosters = styled.div`
-  display: flex !important;
-  width: 100% !important;
-  gap: 10px !important;
-  position: fixed;
-  top: 77%;
-  z-index: 2 !important;
-  overflow: hidden !important;
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  left: 20.8%;
+  top: 75%;
+  z-index: 2;
+  overflow: hidden;
 `;
 
 export const BannerPosterItem = styled.img`
-  width: 55px !important;
-  height: 68px !important;
-  border-radius: 6px !important;
-  cursor: pointer !important;
+  width: 55px;
+  height: 68px;
+  border-radius: 6px;
+  object-fit: cover;
+  cursor: pointer;
   &:hover {
-    border: 2px solid white !important;
+    border: 2px solid white;
     box-sizing: border-box;
     outline: none;
   }
 `;
 
 export const BannerPeriod = styled.p`
-  margin-bottom: 5px !important;
   font-weight: normal;
 `;
 
