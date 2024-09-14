@@ -25,6 +25,7 @@ export const Hr = styled.div`
 export const HeaderButton = styled.button`
   background-color: transparent;
   border: none;
+  font-size: 13px;
   color: #878d95;
   cursor: pointer;
   line-height: 18px;
