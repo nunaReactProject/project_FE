@@ -2,10 +2,10 @@ import { useQuery } from '@tanstack/react-query';
 import { productOpenApi } from '../Api';
 import { XMLParser } from 'fast-xml-parser';
 
-const fetchRankProduct = async ({ ststype, date, catecode, area }) => {
+const fetchWeeklyRankProduct = async ({ ststype, date }) => {
   const response = await productOpenApi({
     method: 'get',
-    url: `/boxoffice?ststype=${ststype}&date=${date}&catecode=${catecode}&area=${area}`
+    url: `/boxoffice?ststype=${ststype}&date=${date}`
   });
 
   const parser = new XMLParser();
@@ -13,10 +13,10 @@ const fetchRankProduct = async ({ ststype, date, catecode, area }) => {
   return jsonData;
 };
 
-export const useRankProductQuery = ({ ststype, date, catecode, area }) => {
+export const useWeeklyRankProductQuery = ({ ststype, date }) => {
   return useQuery({
-    queryKey: ['boxoffice', { ststype, date, catecode, area }],
-    queryFn: () => fetchRankProduct({ ststype, date, catecode, area }),
+    queryKey: ['weeklyBoxOffice', { ststype, date }],
+    queryFn: () => fetchWeeklyRankProduct({ ststype, date }),
     select: (response) => response.boxofs.boxof
   });
 };

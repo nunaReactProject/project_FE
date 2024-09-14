@@ -20,6 +20,18 @@ export const Thead = styled.thead`
 export const Th = styled.th`
   vertical-align: middle;
   height: 53px;
+
+  @media (max-width: 768px) {
+    &:nth-child(4) {
+      display: none;
+    }
+  }
+`;
+
+export const Td = styled.td`
+  text-align: center;
+  vertical-align: middle;
+  height: 53px;
 `;
 
 export const Tbody = styled.tbody`
@@ -31,12 +43,6 @@ export const Tbody = styled.tbody`
 `;
 
 export const Tr = styled.tr`
-  height: 53px;
-`;
-
-export const Td = styled.td`
-  text-align: center;
-  vertical-align: middle;
   height: 53px;
 `;
 
@@ -56,6 +62,7 @@ export const ReserveButton = styled.button`
     background-color: #c82333;
   }
 `;
+
 export const ReserveStatus = styled.button`
   background-color: #e0e2e5;
   color: #a2a6b0;
@@ -78,13 +85,13 @@ export const TableCell = styled.div`
 export const ImageContainer = styled.span`
   display: inline-block;
   overflow: hidden;
-  width: 84px;
-  height: 104px;
+  width: 84px; /* 고정된 너비 */
+  height: 104px; /* 고정된 높이 */
   border-radius: 5px;
 
   img {
-    max-height: 104px;
-    width: 84px;
+    width: 84px; /* 고정된 너비 */
+    height: 104px; /* 고정된 높이 */
     transition: transform 0.3s;
     border-radius: 5px;
   }
@@ -104,4 +111,8 @@ export const RankingProductCategory = styled.td`
   text-align: center;
   vertical-align: middle;
   color: #62676c;
+
+  @media (max-width: 768px) {
+    display: none; /* 장르 열 숨기기 */
+  }
 `;

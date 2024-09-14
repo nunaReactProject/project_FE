@@ -1,13 +1,15 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as S from './WeeklyRanking.styled.js';
-import { useRankProductQuery } from '../../../hooks/useRankProduct.js';
 import WeeklyRankingCard from '../WeeklyRankingCard/WeeklyRankingCard.jsx';
+import { useWeeklyRankProductQuery } from '../../../hooks/useWeeklyRankProductQuery.js';
 
-const WeeklyRanking = ({ ststype, date, catecode = '', area = '' }) => {
-  const { data, isLoading, error } = useRankProductQuery({ ststype, date, catecode, area });
+const WeeklyRanking = ({ ststype, date }) => {
+  const { data, isLoading, error } = useWeeklyRankProductQuery({ ststype, date });
   const canvasRef = useRef(null);
   const [bgColor, setBgColor] = useState('');
   const [colorCache, setColorCache] = useState({});
+  const navigate = useNavigate();
 
   const getAverageColor = (imageUrl) => {
     const canvas = canvasRef.current;
@@ -54,6 +56,10 @@ const WeeklyRanking = ({ ststype, date, catecode = '', area = '' }) => {
     }
   };
 
+  const goToDetailPage = (id) => {
+    navigate(`/detail/${id}`);
+  };
+
   useEffect(() => {
     if (data && data.length > 0) {
       const firstProductImageUrl = `https://cors-anywhere.herokuapp.com/http://www.kopis.or.kr${data[0].poster}`;
@@ -79,7 +85,11 @@ const WeeklyRanking = ({ ststype, date, catecode = '', area = '' }) => {
         <S.SubHeaderRanking>주간베스트</S.SubHeaderRanking>
         <S.ProductList>
           {products.map((product) => (
-            <div key={product.id} onMouseEnter={() => handleMouseEnter(product.poster)}>
+            <div
+              key={product.id}
+              onMouseEnter={() => handleMouseEnter(product.poster)}
+              onClick={() => goToDetailPage(product.mt20id)}
+              style={{ cursor: 'pointer' }}>
               <WeeklyRankingCard products={[product]} />
             </div>
           ))}

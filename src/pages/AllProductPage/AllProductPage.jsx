@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { format, subDays } from 'date-fns';
-import { useRankProductQuery } from '../../hooks/useRankProduct';
+import { useRankProductQuery } from '../../hooks/useRankProductQuery';
 import RankingCard from '../../components/AllProduct/RankingCard/RankingCard';
 import RankingPeriod from '../../components/AllProduct/RankingPeriod/RankingPeriod';
 import GenreRanking from '../../components/AllProduct/GenreRanking/GenreRanking';

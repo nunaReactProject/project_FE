@@ -16,7 +16,10 @@ const GenreRanking = ({ setCatecode, catecode }) => {
           <S.CategoryItem
             type='button'
             key={category.code}
-            onClick={() => changeCategory(category.code)}
+            onClick={(e) => {
+              e.preventDefault();
+              changeCategory(category.code);
+            }}
             isSelected={catecode === category.code ? 'select' : 'nonselect'}>
             {category.name}
           </S.CategoryItem>
