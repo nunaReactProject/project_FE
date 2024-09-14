@@ -3,7 +3,6 @@ import './GenreAndAreaRank.style.css';
 import { useAreaRank, useGenreRank } from '../../../hooks/useGenreAreaCategiry';
 import { useNavigate } from 'react-router-dom';
 
-
 const GenreAndAreaRank = () => {
   const [selectedRank, setSelectedRank] = useState('genre');
   const [genreCategoryButton, setGenreCategoryButton] = useState('play');
@@ -22,7 +21,6 @@ const GenreAndAreaRank = () => {
   const onNavigateDetailPage = (id) => {
     navigate(`/detail/${id}`);
   };
-
 
   const getFormattedDate = (date) => {
     const year = date.getFullYear();
@@ -112,6 +110,10 @@ const GenreAndAreaRank = () => {
     </>
   );
 
+  const itemClick = (item) => {
+    onNavigateDetailPage(item.mt20id);
+  };
+
   const areaCategories = () => (
     <>
       <button
@@ -177,7 +179,7 @@ const GenreAndAreaRank = () => {
     if (data && data.boxofs && data.boxofs.boxof && data.boxofs.boxof.length > 0) {
       return data.boxofs.boxof.slice(0, 5).map((item, index) => (
         <div className='genre-area-rank-item' key={index}>
-          <div className='genre-area-rank-img-box'>
+          <div className='genre-area-rank-img-box' onClick={() => itemClick(item)}>
             <div className='genre-area-rank-img-box-detail'>
               <img src={`${baseUrl}${item.poster}`} alt='' />
             </div>
