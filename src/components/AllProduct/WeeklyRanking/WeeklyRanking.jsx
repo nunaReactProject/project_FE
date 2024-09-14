@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './WeeklyRanking.styled.js';
 import WeeklyRankingCard from '../WeeklyRankingCard/WeeklyRankingCard.jsx';
 import { useWeeklyRankProductQuery } from '../../../hooks/useWeeklyRankProductQuery.js';
+import { Spinner } from '@chakra-ui/react';
 
 const WeeklyRanking = ({ ststype, date }) => {
   const { data, isLoading, error } = useWeeklyRankProductQuery({ ststype, date });
@@ -10,6 +11,10 @@ const WeeklyRanking = ({ ststype, date }) => {
   const [bgColor, setBgColor] = useState('');
   const [colorCache, setColorCache] = useState({});
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (data) console.log(data);
+  }, [data]);
 
   const getAverageColor = (imageUrl) => {
     const canvas = canvasRef.current;
@@ -68,7 +73,11 @@ const WeeklyRanking = ({ ststype, date }) => {
   }, [data]);
 
   if (isLoading) {
-    return <div>Loading</div>;
+    return (
+      <S.SpinnerBox>
+        <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl' />
+      </S.SpinnerBox>
+    );
   }
 
   if (error) {

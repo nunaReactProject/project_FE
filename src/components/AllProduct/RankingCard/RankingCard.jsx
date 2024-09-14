@@ -1,8 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './RankingCard.styled.js';
+import { Spinner } from '@chakra-ui/react';
 
-const RankingCard = ({ products }) => {
+const RankingCard = ({ products, isLoading }) => {
   const navigate = useNavigate();
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -10,6 +11,14 @@ const RankingCard = ({ products }) => {
   const goToDetailPage = (id) => {
     navigate(`/detail/${id}`);
   };
+
+  if (isLoading) {
+    return (
+      <S.SpinnerBox>
+        <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl' />
+      </S.SpinnerBox>
+    );
+  }
 
   return (
     <S.Table>

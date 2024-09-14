@@ -37,3 +37,10 @@ export const ProductList = styled.span`
   justify-content: space-between;
   margin-top: 20px;
 `;
+
+export const SpinnerBox = styled.div`
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

@@ -116,3 +116,10 @@ export const RankingProductCategory = styled.td`
     display: none; /* 장르 열 숨기기 */
   }
 `;
+
+export const SpinnerBox = styled.div`
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

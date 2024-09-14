@@ -5,7 +5,7 @@ import { XMLParser } from 'fast-xml-parser';
 const fetchWeeklyRankProduct = async ({ ststype, date }) => {
   const response = await productOpenApi({
     method: 'get',
-    url: `/boxoffice?ststype=${ststype}&date=${date}`
+    url: `/boxoffice?ststype=${ststype}&date=${date}&limit=5`
   });
 
   const parser = new XMLParser();
