@@ -76,10 +76,21 @@ export const TableCell = styled.div`
 `;
 
 export const ImageContainer = styled.span`
+  display: inline-block;
+  overflow: hidden;
+  width: 84px;
+  height: 104px;
+  border-radius: 5px;
+
   img {
     max-height: 104px;
     width: 84px;
+    transition: transform 0.3s;
     border-radius: 5px;
+  }
+
+  &:hover img {
+    transform: scale(1.1);
   }
 `;
 
