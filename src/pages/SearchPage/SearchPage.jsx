@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSearchMusical } from '../../hooks/useSearchPage';
 import {
   Button,
@@ -13,6 +13,7 @@ import {
   Tickettxt,
   Spinerbox
 } from './SearchPage.styled';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const SearchPage = () => {
   const [key, setKey] = useState('');
@@ -27,6 +28,14 @@ const SearchPage = () => {
   const [endDate, setEndDate] = useState(''); // 종료일 상태 추가
   const [kindMoad, setKindMoad] = useState('N'); // 아동용 상태 추가
   const [sortOption, setSortOption] = useState('showAllMusicals'); // 정렬 옵션 추가
+
+  const navigate = useNavigate();
+  const [query, setQuery] = useSearchParams();
+
+  useEffect(() => {
+    console.log(query.get('name'));
+    onSearch();
+  }, [query]);
 
   // 커스텀 훅 사용
   const {
@@ -131,13 +140,22 @@ const SearchPage = () => {
     setKindMoad('N');
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!key.trim()) {
+  const onSearchEnter = (e) => {
+    if (e.key === 'Enter') {
+      navigate(`/search?name=${key}`);
+    }
+  };
+
+  const onSerachClick = () => {
+    navigate(`/search?name=${key}`);
+  };
+
+  const onSearch = () => {
+    if (!query.get('name').trim()) {
       alert('검색어를 입력해 주세요.');
       return; // 검색어가 없으면 함수를 종료
     }
-    setSubmittedKey(key);
+    setSubmittedKey(query.get('name'));
     setShouldFetch(true);
     setPage(1); // 페이지 초기화
     setKey('');
@@ -153,15 +171,16 @@ const SearchPage = () => {
         <p>
           키워드 "{submittedKey}"에 대한 검색 결과는 {data.length}건입니다.
         </p>
-        <form onSubmit={handleSubmit}>
-          <input
-            type='search'
-            placeholder='Search'
-            value={key}
-            onChange={(e) => setKey(e.target.value)} // 사용자 입력 업데이트
-          />
-          <Button type='submit'>검색</Button>
-        </form>
+        {/* <form onSubmit={handleSubmit}> */}
+        <input
+          type='search'
+          placeholder='Search'
+          value={key}
+          onChange={(e) => setKey(e.target.value)} // 사용자 입력 업데이트
+          onKeyDown={(e) => onSearchEnter(e)}
+        />
+        <Button onClick={onSerachClick}>검색</Button>
+        {/* </form> */}
       </Searchbox>
       {isLoading && <Spinerbox></Spinerbox>}
       {error && <p style={{ color: 'red' }}>{error.message}</p>}{' '}
