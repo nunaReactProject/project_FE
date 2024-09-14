@@ -11,6 +11,7 @@ export const Container = styled.div`
 
 export const Logo = styled.h1`
   font-size: 48px;
+  color: #1a74c0;
   font-weight: 700;
   cursor: pointer;
 `;
