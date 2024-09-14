@@ -16,7 +16,10 @@ const LocationRanking = ({ setArea, area }) => {
           <S.CategoryItem
             type='button'
             key={category.code}
-            onClick={() => changeCategory(category.code)}
+            onClick={(e) => {
+              e.preventDefault();
+              changeCategory(category.code);
+            }}
             isSelected={area === category.code ? 'select' : 'nonselect'}>
             {category.name}
           </S.CategoryItem>

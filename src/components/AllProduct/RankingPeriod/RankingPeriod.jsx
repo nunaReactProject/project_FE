@@ -65,17 +65,32 @@ const RankingPeriod = ({ setStstype, setDate }) => {
 
       <S.StatusTypeList>
         <S.StatusLi isSelected={selectedStatus === 'day'}>
-          <S.StatusButton onClick={() => statusChange('day')} isSelected={selectedStatus === 'day'}>
+          <S.StatusButton
+            onClick={(e) => {
+              e.preventDefault();
+              statusChange('day');
+            }}
+            isSelected={selectedStatus === 'day'}>
             일간
           </S.StatusButton>
         </S.StatusLi>
         <S.StatusLi isSelected={selectedStatus === 'week'}>
-          <S.StatusButton onClick={() => statusChange('week')} isSelected={selectedStatus === 'week'}>
+          <S.StatusButton
+            onClick={(e) => {
+              e.preventDefault();
+              statusChange('week');
+            }}
+            isSelected={selectedStatus === 'week'}>
             주간
           </S.StatusButton>
         </S.StatusLi>
         <S.StatusLi isSelected={selectedStatus === 'month'}>
-          <S.StatusButton onClick={() => statusChange('month')} isSelected={selectedStatus === 'month'}>
+          <S.StatusButton
+            onClick={(e) => {
+              e.preventDefault();
+              statusChange('month');
+            }}
+            isSelected={selectedStatus === 'month'}>
             월간
           </S.StatusButton>
         </S.StatusLi>

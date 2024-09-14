@@ -1,9 +1,24 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as S from './RankingCard.styled.js';
+import { Spinner } from '@chakra-ui/react';
 
-const RankingCard = ({ products }) => {
+const RankingCard = ({ products, isLoading }) => {
+  const navigate = useNavigate();
   const today = new Date();
-  today.setHours(0, 0, 0, 0); // 오늘 날짜를 자정으로 설정
+  today.setHours(0, 0, 0, 0);
+
+  const goToDetailPage = (id) => {
+    navigate(`/detail/${id}`);
+  };
+
+  if (isLoading) {
+    return (
+      <S.SpinnerBox>
+        <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl' />
+      </S.SpinnerBox>
+    );
+  }
 
   return (
     <S.Table>
@@ -25,7 +40,7 @@ const RankingCard = ({ products }) => {
             <S.Tr key={product.mt20id}>
               <S.Td className='ranking_product_rank'>{product.rnum}</S.Td>
               <S.Td className='ranking_product_info'>
-                <S.TableCell>
+                <S.TableCell onClick={() => goToDetailPage(product.mt20id)} style={{ cursor: 'pointer' }}>
                   <S.ImageContainer>
                     <img src={`http://www.kopis.or.kr/${product.poster}`} alt={product.prfnm} />
                   </S.ImageContainer>

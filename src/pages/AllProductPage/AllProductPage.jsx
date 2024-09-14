@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { format, subDays } from 'date-fns';
-import { useRankProductQuery } from '../../hooks/useRankProduct';
+import { useRankProductQuery } from '../../hooks/useRankProductQuery';
 import RankingCard from '../../components/AllProduct/RankingCard/RankingCard';
 import RankingPeriod from '../../components/AllProduct/RankingPeriod/RankingPeriod';
 import GenreRanking from '../../components/AllProduct/GenreRanking/GenreRanking';
@@ -33,14 +33,6 @@ export default function AllProductPage() {
     }
   }, [activeRanking]);
 
-  if (isLoading) {
-    return <div>Loading</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
   const products = data?.slice(0, 20);
 
   const GenreClick = () => {
@@ -71,7 +63,7 @@ export default function AllProductPage() {
         <RankingPeriod setStstype={setStstype} setDate={setDate} />
       </div>
       <div>
-        <RankingCard products={products} />
+        <RankingCard products={products} isLoading={isLoading} />
       </div>
     </S.RankingContainer>
   );
