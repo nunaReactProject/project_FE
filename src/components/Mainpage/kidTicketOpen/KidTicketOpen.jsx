@@ -8,6 +8,10 @@ const KidTicketOpen = () => {
 
   const navigate = useNavigate();
 
+  const onNavigateRaking = () => {
+    navigate('/all');
+  };
+
   const onNavigateDetailPage = (id) => {
     navigate(`/detail/${id}`);
   };
@@ -18,7 +22,7 @@ const KidTicketOpen = () => {
       <ko.KidTicketOpenWrap>
         <ko.KidTicketOpenHeader>
           <h1>키즈 티켓 오픈</h1>
-          <a href='#'>전체보기</a>
+          <ko.AllViewText onClick={onNavigateRaking}>전체보기</ko.AllViewText>
         </ko.KidTicketOpenHeader>
         <ko.KidTicketOpenBox>
           {data?.dbs.db.map((item, index) => (

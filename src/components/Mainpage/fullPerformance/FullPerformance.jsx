@@ -7,6 +7,10 @@ const FullPerformanceComponent = () => {
   const { data } = useFullPerformanceQuery();
   const navigate = useNavigate();
 
+  const onNavigateRaking = () => {
+    navigate('/all');
+  };
+
   const onNavigateDetailPage = (id) => {
     navigate(`/detail/${id}`);
   };
@@ -16,7 +20,7 @@ const FullPerformanceComponent = () => {
       <fp.FullPerformanceWrap>
         <fp.FullPerformanceHeader>
           <h1>전체 공연 예정</h1>
-          <a href='#'>전체보기</a>
+          <fp.AllViewText onClick={onNavigateRaking}>전체보기</fp.AllViewText>
         </fp.FullPerformanceHeader>
         <fp.FullPerformanceBox>
           {data?.dbs.db.map((item, index) => {

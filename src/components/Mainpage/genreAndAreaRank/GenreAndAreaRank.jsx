@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './GenreAndAreaRank.style.css';
 import { useAreaRank, useGenreRank } from '../../../hooks/useGenreAreaCategiry';
 import { useNavigate } from 'react-router-dom';
+import { Spinner } from '@chakra-ui/react';
 
 const GenreAndAreaRank = () => {
   const [selectedRank, setSelectedRank] = useState('genre');
@@ -12,6 +13,10 @@ const GenreAndAreaRank = () => {
   const [data, setDate] = useState(null);
   const baseUrl = 'http://www.kopis.or.kr';
   const navigate = useNavigate();
+
+  const onNavigateRaking = () => {
+    navigate('/all');
+  };
 
   const onNavigateDetailPage = (id) => {
     navigate(`/detail/${id}`);
@@ -30,7 +35,11 @@ const GenreAndAreaRank = () => {
   const formattedCurrentDate = getFormattedDate(currentDate);
   const formattedTwoDaysAgo = getFormattedDate(twoDaysAgo);
 
-  const genreData = useGenreRank({ ststype: selectedDate, date: formattedTwoDaysAgo, catecode: code });
+  const { data: genreData, isLoading } = useGenreRank({
+    ststype: selectedDate,
+    date: formattedTwoDaysAgo,
+    catecode: code
+  });
   const areaData = useAreaRank({ ststype: selectedDate, date: formattedTwoDaysAgo, area: code });
 
   const categoryMapping = {
@@ -192,7 +201,9 @@ const GenreAndAreaRank = () => {
               지역별랭킹
             </h1>
           </div>
-          <a href='#'>전체보기</a>
+          <p className='allviewtext' onClick={onNavigateRaking}>
+            전체보기
+          </p>
         </div>
         <div className='genre-area-rank-category-box'>
           <div className='genre-area-rank-category'>
