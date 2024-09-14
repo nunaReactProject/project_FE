@@ -82,6 +82,8 @@ export const TicketLi = styled.li`
   grid-template-columns: 110px 1fr auto;
   border-bottom: 1px solid lightgrey;
 
+  cursor: pointer;
+
   &:last-child {
     border-bottom: none;
   }

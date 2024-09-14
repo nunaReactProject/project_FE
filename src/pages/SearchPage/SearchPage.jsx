@@ -37,6 +37,10 @@ const SearchPage = () => {
     onSearch();
   }, [query]);
 
+  const onNavigateDetailPage = (id) => {
+    navigate(`/detail/${id}`);
+  };
+
   // 커스텀 훅 사용
   const {
     data = [],
@@ -272,7 +276,7 @@ const SearchPage = () => {
               sortedData()
                 .slice(0, page * itemsPerPage)
                 .map((item, index) => (
-                  <TicketLi key={index}>
+                  <TicketLi key={index} onClick={() => onNavigateDetailPage(item.mt20id)}>
                     <Ticketimg>
                       <img src={item.poster} style={{ width: '110px', height: '134px' }} alt='포스터' />
                     </Ticketimg>
