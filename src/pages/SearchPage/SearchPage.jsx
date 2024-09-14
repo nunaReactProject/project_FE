@@ -10,7 +10,8 @@ import {
   TicketLi,
   Ticketimg,
   Ticketbtn,
-  Tickettxt
+  Tickettxt,
+  Spinerbox
 } from './SearchPage.styled';
 
 const SearchPage = () => {
@@ -111,7 +112,7 @@ const SearchPage = () => {
     });
   };
   const resetFilters = () => {
-    setRegionCodes(['11']);
+    setRegionCodes(['']);
     setStateCodes(['01', '02']);
     setCategoryCodes(['']);
     setShouldFetch(false);
@@ -153,6 +154,8 @@ const SearchPage = () => {
           <Button type='submit'>검색</Button>
         </form>
       </Searchbox>
+      {isLoading && <Spinerbox></Spinerbox>}
+      {error && <p style={{ color: 'red' }}>{error.message}</p>}{' '}
       <Maincontent>
         <Filterbox>
           <div>
@@ -231,8 +234,6 @@ const SearchPage = () => {
           </div>
         </Filterbox>
         <div style={{ display: 'grid', gridTemplateRows: '20px auto' }}>
-          {isLoading && <p>로딩 중...</p>}
-          {error && <p style={{ color: 'red' }}>{error.message}</p>}{' '}
           <select onChange={(e) => setSortOption(e.target.value)} defaultValue='showAllMusicals'>
             <option value='showAllMusicals'>전체 보기</option>
             <option value='startDate'>공연 시작일 순으로 정렬</option>

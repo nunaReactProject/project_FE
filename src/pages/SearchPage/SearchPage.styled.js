@@ -10,6 +10,19 @@ export const Container = styled.div`
     width: 90%;
   }
 `;
+export const Spinerbox = styled.div`
+margin: 0 auto;
+  width: 100px;
+  height: 100px;
+  border: 5px solid white;
+  border-radius: 50%;
+  border-top-color: #7848ca;
+  animation: spin 0.8s infinite ease-in-out;
+}
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }`;
 
 export const Searchbox = styled.div`
   text-align: center;
