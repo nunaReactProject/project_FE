@@ -72,6 +72,7 @@ export const itemInfo = styled.li`
   font-size: 15px;
   line-height: 22px;
   box-sizing: border-box;
+  width: 50%;
 `;
 
 export const imgCard = styled.div`
@@ -214,8 +215,10 @@ export const noticeDiv = styled.div`
 
 export const infoSection = styled.section`
   display: flex;
+  width: 1120px;
   flex-direction: column;
-  margin-top: 3rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 `;
 
 export const tableDiv = styled.div`
@@ -267,6 +270,7 @@ export const flexDiv = styled.div`
   //
   //결제 버튼 박스
   width: ${(props) => (props.book ? '100%' : null)};
+  width: ${(props) => (props.time ? '30%' : null)};
 `;
 
 export const monthStep = styled.div`
@@ -318,7 +322,8 @@ export const seatBox = styled.div`
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   display: flex;
-  width: 260px;
+  width: 25%;
+  margin-left: auto;
   flex-direction: column;
   > h3 {
     font-weight: 600;
