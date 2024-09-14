@@ -15,6 +15,7 @@ export const BannerContent = styled.div`
 export const BannerImg = styled.img`
   width: 100vw;
   height: 734px;
+  object-fit: cover;
 `;
 
 export const BannerCategory = styled.p`

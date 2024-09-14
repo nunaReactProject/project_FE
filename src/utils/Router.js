@@ -11,6 +11,7 @@ import Nav from '../components/common/Nav/Nav';
 import * as S from './Router.styled';
 import Register from '../pages/Register/Register';
 import TopBanner from '../components/common/TopBanner/TopBanner';
+import Mypage from '../pages/Mypage/Mypage';
 
 export default function Router() {
   return (
@@ -22,6 +23,7 @@ export default function Router() {
         <Routes>
           <Route path='/' element={<Mainpage />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/mypage' element={<Mypage />} />
           <Route path='/search' element={<SearchPage />} />
           <Route path='/register' element={<Register />} />
           <Route path='/all' element={<AllProductPage />} />
