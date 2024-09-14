@@ -173,3 +173,10 @@ div .genre-area-rank-date-click::before {
 .allviewtext {
   cursor: pointer;
 }
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1120px;
+  height: 342px;
+}
