@@ -12,7 +12,10 @@ export const BannerContent = styled.div`
   position: relative;
 `;
 
-export const BannerImg = styled.img``;
+export const BannerImg = styled.img`
+  width: 100vw;
+  height: 734px;
+`;
 
 export const BannerCategory = styled.p`
   font-size: 17px;
