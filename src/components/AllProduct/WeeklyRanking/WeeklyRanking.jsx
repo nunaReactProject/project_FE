@@ -10,11 +10,28 @@ const WeeklyRanking = ({ ststype, date }) => {
   const canvasRef = useRef(null);
   const [bgColor, setBgColor] = useState('');
   const [colorCache, setColorCache] = useState({});
+  const [itemsToShow, setItemsToShow] = useState(5);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (data) console.log(data);
-  }, [data]);
+    const handleResize = () => {
+      if (window.innerWidth <= 768) {
+        setItemsToShow(3);
+      } else {
+        setItemsToShow(5);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  useEffect(() => {}, [data]);
 
   const getAverageColor = (imageUrl) => {
     const canvas = canvasRef.current;
@@ -84,7 +101,7 @@ const WeeklyRanking = ({ ststype, date }) => {
     return <div>Error: {error.message}</div>;
   }
 
-  const products = data?.slice(0, 5);
+  const products = data?.slice(0, itemsToShow);
 
   return (
     <div>

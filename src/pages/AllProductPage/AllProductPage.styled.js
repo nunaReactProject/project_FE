@@ -11,6 +11,11 @@ export const TypeRanking = styled.div`
   display: flex;
   justify-content: flex-start;
   gap: 20px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 export const Title = styled.h1`
@@ -18,16 +23,23 @@ export const Title = styled.h1`
   margin-bottom: 20px;
   cursor: pointer;
   transition: color 0.3s;
-
-  color: ${(props) => (props.isActive ? 'black' : '#a2a6b0')}; // props에 따라 색상 설정
+  color: ${(props) => (props.isActive ? 'black' : '#a2a6b0')};
 
   &:hover {
-    color: black; // 호버 시 검정색으로 변경
+    color: black;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 20px;
   }
 `;
 
 export const TitleBar = styled.h1`
   font-size: 24px;
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
 `;
 
 export const RankingTab = styled.div`

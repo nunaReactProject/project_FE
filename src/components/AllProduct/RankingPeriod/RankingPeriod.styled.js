@@ -26,6 +26,10 @@ export const StatusButton = styled.button`
   &:hover {
     color: black;
   }
+
+  @media (max-width: 768px) {
+    font-size: 13px;
+  }
 `;
 
 export const RankingReriod = styled.div`
@@ -45,6 +49,10 @@ export const CalendarButton = styled.button`
   cursor: pointer;
   font-size: 26px;
   color: #333;
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
 `;
 
 export const CalendarWrapper = styled.div`
@@ -55,4 +63,5 @@ export const CalendarWrapper = styled.div`
 
 export const CalenderArea = styled.span`
   cursor: pointer;
+  align-items: center;
 `;

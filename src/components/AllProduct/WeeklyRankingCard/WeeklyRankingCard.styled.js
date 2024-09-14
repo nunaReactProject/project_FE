@@ -1,5 +1,3 @@
-// WeeklyRankingCard.styled.js
-
 import styled from 'styled-components';
 
 export const ProductList = styled.section`
@@ -21,11 +19,16 @@ export const ProductItem = styled.li`
 
 export const ProductImgContainer = styled.div`
   width: 200px;
-  height: 247px;
+  height: 260px;
   border-radius: 10px;
   position: relative;
   overflow: hidden;
   transition: transform 0.3s;
+
+  @media (max-width: 768px) {
+    width: 180px;
+    height: 220px;
+  }
 `;
 
 export const ProductImg = styled.img`
@@ -58,6 +61,10 @@ export const ProductInfo = styled.div`
 
 export const TitleInfo = styled.span`
   font-size: 16px;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 export const PeriodInfo = styled.span`
