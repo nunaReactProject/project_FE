@@ -10,10 +10,12 @@ import AllProductPage from '../pages/AllProductPage/AllProductPage';
 import Nav from '../components/common/Nav/Nav';
 import * as S from './Router.styled';
 import Register from '../pages/Register/Register';
+import TopBanner from '../components/common/TopBanner/TopBanner';
 
 export default function Router() {
   return (
     <S.PageContainer>
+      <TopBanner />
       <Header />
       <Nav />
       <S.Content>
