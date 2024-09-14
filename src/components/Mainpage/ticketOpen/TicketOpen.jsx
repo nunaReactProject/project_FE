@@ -8,6 +8,10 @@ const TicketOpen = () => {
 
   const navigate = useNavigate();
 
+  const onNavigateRaking = () => {
+    navigate('/all');
+  };
+
   const onNavigateDetailPage = (id) => {
     navigate(`/detail/${id}`);
   };
@@ -17,7 +21,7 @@ const TicketOpen = () => {
       <to.TicketOpenWrap>
         <to.TicketOpenHeader>
           <h1>티켓오픈</h1>
-          <a href='#'>전체보기</a>
+          <to.AllViewText onClick={onNavigateRaking}>전체보기</to.AllViewText>
         </to.TicketOpenHeader>
         <to.TicketOpenBox>
           {data?.dbs?.db.map((item, index) => (

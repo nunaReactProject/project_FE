@@ -73,3 +73,7 @@ export const KidTicketOpenDate = styled.p`
   font-size: 14px;
   color: #fa2828;
 `;
+
+export const AllViewText = styled.p`
+  cursor: pointer;
+`;

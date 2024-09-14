@@ -83,3 +83,7 @@ export const FullPerformanceLocation = styled.p`
   font-size: 14px;
   color: #62676c;
 `;
+
+export const AllViewText = styled.p`
+  cursor: pointer;
+`;
