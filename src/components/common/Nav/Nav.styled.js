@@ -4,12 +4,14 @@ import { CiSearch } from 'react-icons/ci';
 export const Container = styled.div`
   width: 1120px;
   display: flex;
+  align-items: center;
   margin: auto;
   padding: 18px 0;
 `;
 
 export const Logo = styled.h1`
-  font-size: 40px;
+  font-size: 48px;
+  color: #1a74c0;
   font-weight: 700;
   cursor: pointer;
 `;
@@ -17,6 +19,7 @@ export const Logo = styled.h1`
 export const SearchBox = styled.div`
   width: 220px;
   height: 38px;
+
   border: 1px solid #e2e3e6;
   border-radius: 20px;
   margin-left: auto;

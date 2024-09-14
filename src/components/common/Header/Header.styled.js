@@ -11,7 +11,7 @@ export const HeaderContainer = styled.div`
   padding-top: 10px;
   padding-bottom: 10px;
   display: flex;
-  color: #878d95;
+  color: #1a74c0;
   gap: 8px;
   justify-content: flex-end;
   align-items: center;
@@ -25,6 +25,7 @@ export const Hr = styled.div`
 export const HeaderButton = styled.button`
   background-color: transparent;
   border: none;
+  font-size: 13px;
   color: #878d95;
   cursor: pointer;
   line-height: 18px;
