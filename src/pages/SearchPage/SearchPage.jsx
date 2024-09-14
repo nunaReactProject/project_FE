@@ -17,7 +17,7 @@ import {
 const SearchPage = () => {
   const [key, setKey] = useState('');
   const [submittedKey, setSubmittedKey] = useState('');
-  const [regionCodes, setRegionCodes] = useState(['']);
+  const [regionCodes, setRegionCodes] = useState([]);
   const [stateCodes, setStateCodes] = useState(['01', '02']);
   const [categoryCodes, setCategoryCodes] = useState([]);
   const [shouldFetch, setShouldFetch] = useState(false);
@@ -46,13 +46,22 @@ const SearchPage = () => {
     endDate
   );
 
-  console.log(data);
+  // 전체 데이터를 저장할 상태 추가
+  const [allData, setAllData] = useState([]);
+
+  // 데이터가 변경될 때마다 전체 데이터를 업데이트
+  React.useEffect(() => {
+    if (data.length > 0) {
+      setAllData(data); // 처음 검색할 때 전체 데이터를 저장
+    }
+  }, [data]);
+
   const sortedData = () => {
-    const sorted = [...data]; // 데이터 복사
+    const sorted = [...allData]; // 전체 데이터 복사
     if (sortOption === 'startDate') {
-      return sorted.sort((a, b) => new Date(a.prfpdfrom) - new Date(b.prfpdfrom)); // 공연 시작일 기준 정렬
+      return sorted.sort((a, b) => new Date(a.prfpdfrom) - new Date(b.prfpdfrom));
     } else if (sortOption === 'endDate') {
-      return sorted.sort((a, b) => new Date(b.prfpdto) - new Date(a.prfpdto)); // 공연 종료일 기준 정렬
+      return sorted.sort((a, b) => new Date(b.prfpdto) - new Date(a.prfpdto));
     }
     return sorted; // 기본적으로 전체 보기
   };
@@ -112,7 +121,7 @@ const SearchPage = () => {
     });
   };
   const resetFilters = () => {
-    setRegionCodes(['']);
+    setRegionCodes([]);
     setStateCodes(['01', '02']);
     setCategoryCodes([]);
     setShouldFetch(false);
@@ -136,7 +145,6 @@ const SearchPage = () => {
 
   const loadMore = () => {
     setPage((prevPage) => prevPage + 1); // 페이지 증가
-    setShouldFetch(true); // 데이터 재요청을 위해 shouldFetch를 true로 설정
   };
 
   return (
@@ -265,7 +273,7 @@ const SearchPage = () => {
               <p>결과가 없습니다.</p>
             )}
           </TicketUl>
-          {data.length > page * itemsPerPage && (
+          {allData.length > page * itemsPerPage && (
             <Button className='data_plus_btn' onClick={loadMore}>
               더 보기
             </Button>
