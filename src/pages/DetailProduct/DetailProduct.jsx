@@ -19,6 +19,10 @@ function DetailProduct() {
   let la = 0;
   let lo = 0;
 
+  useEffect(() => {
+    if (data) console.log(data);
+  }, [data]);
+
   if (relateP) {
     la = relateP?.la;
     lo = relateP?.lo;
