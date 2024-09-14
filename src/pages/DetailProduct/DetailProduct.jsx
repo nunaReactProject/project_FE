@@ -9,6 +9,7 @@ import DetailTab from '../../components/DetailProduct/DetailTab';
 import DetailLocation from './DetailLocation';
 import 'react-calendar/dist/Calendar.css';
 import { useParams } from 'react-router-dom';
+import { object } from 'prop-types';
 
 function DetailProduct() {
   const { id } = useParams();
@@ -35,6 +36,9 @@ function DetailProduct() {
   data?.dtguidance?.split(',').map((time) => {
     return (timeStr += time + ' | ');
   });
+
+  console.log(typeof data?.styurls.styurl);
+  console.log(data?.styurls.styurl);
 
   const kakaoShare = () => {
     let currentURL = window.location.url;
@@ -76,9 +80,9 @@ function DetailProduct() {
           <S.mainInfo>
             <S.titleLine>
               <S.Title>
-                {data?.genre}
+                {data?.genrenm}
                 {`<`}
-                {data?.title}
+                {data?.prfnm}
                 {`>`}
               </S.Title>
               <S.shareButton>
@@ -86,42 +90,40 @@ function DetailProduct() {
               </S.shareButton>
             </S.titleLine>
             <S.underLine1 />
-            <ul>
-              <S.rowStyle>
-                <S.itemInfo>
-                  <S.infoLabel>장르</S.infoLabel>
-                  <S.infoDesc>{data?.genre}</S.infoDesc>
-                </S.itemInfo>
-                <S.itemInfo>
-                  <S.infoLabel>관람시간</S.infoLabel>
-                  <S.infoDesc>{data?.runtime}</S.infoDesc>
-                </S.itemInfo>
-              </S.rowStyle>
-              <S.rowStyle>
-                <S.itemInfo>
-                  <S.infoLabel>기간</S.infoLabel>
-                  <S.infoDesc>
-                    {data?.startDate} ~ {data?.endDate}
-                  </S.infoDesc>
-                </S.itemInfo>
+            <S.flexDiv>
+              <S.itemInfo>
+                <S.infoLabel>장르</S.infoLabel>
+                <S.infoDesc>{data?.genrenm}</S.infoDesc>
+              </S.itemInfo>
+              <S.itemInfo>
+                <S.infoLabel>관람시간</S.infoLabel>
+                <S.infoDesc>{data?.prfruntime}</S.infoDesc>
+              </S.itemInfo>
+            </S.flexDiv>
+            <S.flexDiv>
+              <S.itemInfo>
+                <S.infoLabel>기간</S.infoLabel>
+                <S.infoDesc>
+                  {data?.prfpdfrom} ~ {data?.prfpdto}
+                </S.infoDesc>
+              </S.itemInfo>
 
-                <S.itemInfo>
-                  <S.infoLabel>관람등급</S.infoLabel>
-                  <S.infoDesc>{data?.age}</S.infoDesc>
-                </S.itemInfo>
-              </S.rowStyle>
-            </ul>
+              <S.itemInfo>
+                <S.infoLabel>관람등급</S.infoLabel>
+                <S.infoDesc>{data?.prfage}</S.infoDesc>
+              </S.itemInfo>
+            </S.flexDiv>
             <S.underLine2 />
-            <S.rowStyle>
+            <S.flexDiv>
               <S.itemInfo>
                 <S.infoLabel>가격</S.infoLabel>
-                <S.infoDesc>{data?.price}</S.infoDesc>
+                <S.infoDesc>{data?.pcseguidance}</S.infoDesc>
               </S.itemInfo>
               <S.itemInfo>
                 <S.infoLabel>할인</S.infoLabel>
                 <S.infoDesc>창작 후원 할인 20%</S.infoDesc>
               </S.itemInfo>
-            </S.rowStyle>
+            </S.flexDiv>
           </S.mainInfo>
         </S.mainSection>
         <S.flexDiv isborder={true}>
@@ -144,7 +146,7 @@ function DetailProduct() {
               />
             </S.calendarWrapper>
           </S.flexDiv>
-          <S.flexDiv borderR={true} padding={true}>
+          <S.flexDiv borderR={true} padding={true} time={true}>
             <S.monthStep>
               <S.stepH>
                 <span>STEP 2</span>
@@ -159,7 +161,7 @@ function DetailProduct() {
                 <h2>
                   <span>
                     <span>출연진</span>
-                    <span>{data?.actors}</span>
+                    <span>{data?.prfcast ? data?.prfcast : '없음'}</span>
                   </span>
                 </h2>
               </S.timeBox>
@@ -201,18 +203,18 @@ function DetailProduct() {
             <S.Title mt={true}>상세정보</S.Title>
             <S.subTitle>공연 시간 정보</S.subTitle>
             <p>
-              {data?.startDate} ~ {data?.endDate}
+              {data?.prfpdfrom} ~ {data?.prfpdto}
             </p>
             <p>{timeStr.slice(0, -2)}</p>
-
             <S.noticeDiv>
               <S.subTitle>공지사항</S.subTitle>
               <img src='data:image/png;base64,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' />
             </S.noticeDiv>
-
-            {data?.detailPhotos?.map((photo, index) => (
-              <img src={photo} key={index} />
-            ))}
+            {typeof data?.styurls.styurl === 'string' ? (
+              <img src={data?.styurls.styurl} />
+            ) : (
+              data?.styurls.styurl.map((url, index) => <img src={url} key={index} />)
+            )}
           </S.detailSection>
         )}
         {isDetailLocation && (
@@ -235,21 +237,21 @@ function DetailProduct() {
               <S.Title mb={true}>상품관련 정보</S.Title>
               <S.rowStyle top='#c6c3c3' color='#dcdddf'>
                 <th>주최/기획</th>
-                <td>&nbsp;&nbsp;{data?.company}</td>
+                <td>&nbsp;&nbsp;{data?.entrpsnm ? data?.entrpsnm : '없음'}</td>
                 <th>고객문의</th>
                 <td>&nbsp;&nbsp;02-6954-0772</td>
               </S.rowStyle>
               <S.rowStyle color='#dcdddf'>
                 <th>주연</th>
-                <td>&nbsp;&nbsp;{data?.actors}</td>
+                <td>&nbsp;&nbsp;{data?.prfcast ? data?.prfcast : '없음'}</td>
                 <th>관람등급</th>
-                <td>&nbsp;&nbsp;{data?.age}</td>
+                <td>&nbsp;&nbsp;{data?.prfage}</td>
               </S.rowStyle>
               <S.rowStyle color='#dcdddf'>
                 <th>공연시간</th>
-                <td>&nbsp;&nbsp;{data?.runtime}</td>
+                <td>&nbsp;&nbsp;{data?.prfruntime}</td>
                 <th>공연장소</th>
-                <td>&nbsp;&nbsp;{data?.place}</td>
+                <td>&nbsp;&nbsp;{data?.fcltynm}</td>
               </S.rowStyle>
               <S.rowStyle color='#dcdddf'>
                 <th>예매취소조건</th>
