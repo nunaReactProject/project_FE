@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './GenreAndAreaRank.style.css';
 import { useAreaRank, useGenreRank } from '../../../hooks/useGenreAreaCategiry';
+import { useNavigate } from 'react-router-dom';
 
 const GenreAndAreaRank = () => {
   const [selectedRank, setSelectedRank] = useState('genre');
@@ -10,6 +11,11 @@ const GenreAndAreaRank = () => {
   const [code, setCode] = useState('AAAA');
   const [data, setDate] = useState(null);
   const baseUrl = 'http://www.kopis.or.kr';
+  const navigate = useNavigate();
+
+  const onNavigateDetailPage = (id) => {
+    navigate(`/detail/${id}`);
+  };
 
   const getFormattedDate = (date) => {
     const year = date.getFullYear();
@@ -154,7 +160,7 @@ const GenreAndAreaRank = () => {
   const renderData = (data) => {
     if (data && data.boxofs && data.boxofs.boxof && data.boxofs.boxof.length > 0) {
       return data.boxofs.boxof.slice(0, 5).map((item, index) => (
-        <div className='genre-area-rank-item' key={index}>
+        <div className='genre-area-rank-item' key={index} onClick={() => onNavigateDetailPage(item.mt20id)}>
           <div className='genre-area-rank-img-box'>
             <div className='genre-area-rank-img-box-detail'>
               <img src={`${baseUrl}${item.poster}`} alt='' />

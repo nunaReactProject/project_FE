@@ -1,10 +1,16 @@
 import React from 'react';
 import * as to from './TicketOpen.styled.js';
 import { useTicketOpenQuery } from '../../../hooks/useTicketOpen';
+import { useNavigate } from 'react-router-dom';
 
 const TicketOpen = () => {
   const { data } = useTicketOpenQuery();
-  console.log(data);
+
+  const navigate = useNavigate();
+
+  const onNavigateDetailPage = (id) => {
+    navigate(`/detail/${id}`);
+  };
 
   return (
     <to.TicketOpenContainer>
@@ -15,7 +21,7 @@ const TicketOpen = () => {
         </to.TicketOpenHeader>
         <to.TicketOpenBox>
           {data?.dbs?.db.map((item, index) => (
-            <to.TicketOpenItem key={index}>
+            <to.TicketOpenItem key={index} onClick={() => onNavigateDetailPage(item.mt20id)}>
               <to.TicketOpenImgBox>
                 <img src={item.poster} alt={item.prfnm} />
               </to.TicketOpenImgBox>

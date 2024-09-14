@@ -1,9 +1,15 @@
 import React from 'react';
 import * as fp from './FullPerformance.styled.js';
 import { useFullPerformanceQuery } from '../../../hooks/useFullPerformance.js';
+import { useNavigate } from 'react-router-dom';
 
 const FullPerformanceComponent = () => {
   const { data } = useFullPerformanceQuery();
+  const navigate = useNavigate();
+
+  const onNavigateDetailPage = (id) => {
+    navigate(`/detail/${id}`);
+  };
 
   return (
     <fp.FullPerformanceContainer>
@@ -13,18 +19,21 @@ const FullPerformanceComponent = () => {
           <a href='#'>전체보기</a>
         </fp.FullPerformanceHeader>
         <fp.FullPerformanceBox>
-          {data?.dbs.db.map((item, index) => (
-            <fp.FullPerformanceItem key={index}>
-              <fp.FullPerformanceImgBox>
-                <img src={item.poster} alt={item.prfnm} />
-              </fp.FullPerformanceImgBox>
-              <fp.FullPerformanceTitle>{item.prfnm}</fp.FullPerformanceTitle>
-              <fp.FullPerformanceLocation>{item.fcltynm}</fp.FullPerformanceLocation>
-              <fp.FullPerformanceDate>
-                {item.prfpdfrom}~{item.prfpdto}
-              </fp.FullPerformanceDate>
-            </fp.FullPerformanceItem>
-          ))}
+          {data?.dbs.db.map((item, index) => {
+            console.log(item);
+            return (
+              <fp.FullPerformanceItem key={index} onClick={() => onNavigateDetailPage(item.mt20id)}>
+                <fp.FullPerformanceImgBox>
+                  <img src={item.poster} alt={item.prfnm} />
+                </fp.FullPerformanceImgBox>
+                <fp.FullPerformanceTitle>{item.prfnm}</fp.FullPerformanceTitle>
+                <fp.FullPerformanceLocation>{item.fcltynm}</fp.FullPerformanceLocation>
+                <fp.FullPerformanceDate>
+                  {item.prfpdfrom}~{item.prfpdto}
+                </fp.FullPerformanceDate>
+              </fp.FullPerformanceItem>
+            );
+          })}
         </fp.FullPerformanceBox>
       </fp.FullPerformanceWrap>
     </fp.FullPerformanceContainer>
