@@ -19,7 +19,7 @@ const SearchPage = () => {
   const [submittedKey, setSubmittedKey] = useState('');
   const [regionCodes, setRegionCodes] = useState(['']);
   const [stateCodes, setStateCodes] = useState(['01', '02']);
-  const [categoryCodes, setCategoryCodes] = useState(['']);
+  const [categoryCodes, setCategoryCodes] = useState([]);
   const [shouldFetch, setShouldFetch] = useState(false);
   const [page, setPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -114,7 +114,7 @@ const SearchPage = () => {
   const resetFilters = () => {
     setRegionCodes(['']);
     setStateCodes(['01', '02']);
-    setCategoryCodes(['']);
+    setCategoryCodes([]);
     setShouldFetch(false);
     setPage(1);
     setStartDate('');
@@ -136,6 +136,7 @@ const SearchPage = () => {
 
   const loadMore = () => {
     setPage((prevPage) => prevPage + 1); // 페이지 증가
+    setShouldFetch(true); // 데이터 재요청을 위해 shouldFetch를 true로 설정
   };
 
   return (

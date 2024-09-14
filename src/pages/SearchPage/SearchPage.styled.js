@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  font-family: 'Pretendard Variable', Pretendard, sans-serif;
   width: 1120px;
   padding: 0;
   margin: 0 auto;
@@ -100,10 +101,10 @@ export const Button = styled.button`
   background-color: ${({ isActive }) => (isActive ? '#7848ca' : 'white')};
   color: ${({ isActive }) => (isActive ? 'white' : 'black')};
   font-weight: ${({ isActive }) => (isActive ? 'bold' : 'normal')};
-  margin-right: 5px;
-  margin-bottom: 5px;
+  margin-right: 8px;
+  margin-bottom: 8px;
   padding: 10px 15px;
-  border-radius: 20px;
+  border-radius: 15px;
   border: 1px solid #ccc;
   box-sizing: border-box;
   cursor: pointer;
