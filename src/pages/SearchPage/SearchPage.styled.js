@@ -5,7 +5,7 @@ export const Container = styled.div`
   font-family: 'Pretendard Variable', Pretendard, sans-serif;
   width: 1120px;
   padding: 0;
-  margin: 0 auto;
+  margin: 20px auto;
   box-sizing: border-box;
 
   @media (max-width: 1200px) {
@@ -35,14 +35,11 @@ export const Searchbox = styled.div`
   margin: 20px auto;
   box-sizing: border-box;
 
-  & > form {
-    margin: 20px auto;
-  }
-  & > form > Button {
+  & > Button {
     margin: 20px auto;
   }
 
-  & > form > input {
+  & > input {
     margin-right: 5px;
     border: none;
     border-bottom: 1px solid #999;
@@ -89,7 +86,7 @@ export const TicketLi = styled.li`
   }
 
   @media (max-width: 768px) {
-    grid-template-columns: 80px 1fr auto;
+    grid-template-columns: 90px 1fr auto;
   }
 `;
 
@@ -134,6 +131,10 @@ export const Tickettxt = styled.div`
     font-size: 14px;
     color: #333;
   }
+
+  @media (max-width: 768px) {
+    font-size: 15px;
+  }
 `;
 
 export const Ticketbtn = styled.div``;
@@ -147,7 +148,8 @@ export const Maincontent = styled.div`
 
   select {
     justify-self: end;
-    height: 20px;
+    margin: 10px 0;
+    height: 30px;
   }
 
   .data_plus_btn {
@@ -194,5 +196,15 @@ export const Filterbox = styled.div`
 
   @media (max-width: 768px) {
     padding: 1rem; /* 모바일에서는 패딩 조정 */
+    border-bottom-left-radius: 0%;
+    border-bottom-right-radius: 0%;
+    border-bottom: none;
+  }
+`;
+export const FilterButton = styled.button`
+  @media (max-width: 768px) {
+    border: 1px solid #ccc;
+    padding: 1rem; /* 모바일에서는 패딩 조정 */
+    background-color: #f8f9fa;
   }
 `;
