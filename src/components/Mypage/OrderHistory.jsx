@@ -1,14 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './OrderHistory.styled';
 import { useOrderListQuery } from '../../hooks/useOrderList';
 import { useOrderDeleteMutation } from '../../hooks/useOrderDeleteMutation';
 import { useQueryClient } from '@tanstack/react-query';
+import { useSearchParams } from 'react-router-dom';
 
 export default function OrderHistory() {
-  const { data } = useOrderListQuery();
+  const [query, setQuery] = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState({
+    page: query.get('page') || 1
+  });
+
+  const { data } = useOrderListQuery(searchQuery);
 
   const { mutate: orderDeleteMutate } = useOrderDeleteMutation();
   const queryClient = useQueryClient();
+
+  useEffect(() => {
+    const params = new URLSearchParams(searchQuery);
+    setQuery(params);
+  }, [searchQuery]);
 
   useEffect(() => {
     if (data) console.log(data);
@@ -25,12 +36,16 @@ export default function OrderHistory() {
     );
   };
 
+  const handlePageClick = ({ selected }) => {
+    setSearchQuery({ ...searchQuery, page: selected + 1 });
+  };
+
   return (
     <S.Container>
       <S.TabTitle>주문내역</S.TabTitle>
       <S.ProductWrapper>
         <S.Hr />
-        {data?.map((product, index) => {
+        {data?.products?.map((product, index) => {
           return (
             <div key={index}>
               <S.ProductBox>
@@ -49,6 +64,15 @@ export default function OrderHistory() {
           );
         })}
       </S.ProductWrapper>
+      <S.ReactPaginateStyle
+        nextLabel=' >'
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        pageCount={data?.totalPageNum}
+        forcePage={searchQuery.page - 1}
+        previousLabel='< '
+        renderOnZeroPageCount={null}
+      />
     </S.Container>
   );
 }
