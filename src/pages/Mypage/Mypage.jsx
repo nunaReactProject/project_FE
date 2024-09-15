@@ -8,7 +8,7 @@ import Profile from '../../components/Mypage/Profile';
 
 export default function Mypage() {
   const { data: userInfo, isPending, isError } = useUserInfoQuery();
-  const [tabHighlight, setTabHighlight] = useState('회원정보');
+  const [tabHighlight, setTabHighlight] = useState('주문내역');
   const navigate = useNavigate();
 
   useEffect(() => {
