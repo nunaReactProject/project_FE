@@ -7,6 +7,7 @@ import GenreRanking from '../../components/AllProduct/GenreRanking/GenreRanking'
 import LocationRanking from '../../components/AllProduct/LocationRanking/LocationRanking';
 import * as S from './AllProductPage.styled.js';
 import WeeklyRanking from '../../components/AllProduct/WeeklyRanking/WeeklyRanking.jsx';
+import { Spinner } from '@chakra-ui/react';
 
 export default function AllProductPage() {
   const today = new Date();
@@ -33,14 +34,6 @@ export default function AllProductPage() {
     }
   }, [activeRanking]);
 
-  if (isLoading) {
-    return <div>Loading</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
   const products = data?.slice(0, 20);
 
   const GenreClick = () => {
@@ -50,6 +43,14 @@ export default function AllProductPage() {
   const LocationClick = () => {
     setActiveRanking('location');
   };
+
+  if (isLoading) {
+    return (
+      <S.SpinnerBox>
+        <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl' />
+      </S.SpinnerBox>
+    );
+  }
 
   return (
     <S.RankingContainer>

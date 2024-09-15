@@ -47,3 +47,10 @@ export const RankingTab = styled.div`
   gap: 5px;
   margin-top: 30px;
 `;
+
+export const SpinnerBox = styled.div`
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
