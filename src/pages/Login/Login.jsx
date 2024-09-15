@@ -6,14 +6,26 @@ import PasswordInput from '../../components/Login/PasswordInput';
 import LoginButton from '../../components/Login/LoginButton';
 import SocialLogin from '../../components/Login/SocialLogin';
 import { useLoginMutation } from '../../hooks/useLoginMutation';
+import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function Login() {
   const [info, setInfo] = useState({ userId: '', password: '' });
 
   const { mutate: loginMutate } = useLoginMutation();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const onLogin = () => {
-    loginMutate({ info });
+    loginMutate(
+      { info },
+      {
+        onSuccess: () => {
+          navigate('/');
+          queryClient.invalidateQueries(['userInfo']);
+        }
+      }
+    );
   };
 
   return (

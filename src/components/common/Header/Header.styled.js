@@ -6,6 +6,12 @@ export const Overlay = styled.div`
   justify-content: center;
 `;
 
+export const UserName = styled.div`
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 600;
+`;
+
 export const HeaderContainer = styled.div`
   width: 1120px;
   padding-top: 10px;
