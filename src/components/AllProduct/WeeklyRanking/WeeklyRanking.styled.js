@@ -5,7 +5,7 @@ export const WeeklyRankingSection = styled.section`
   overflow: hidden;
 
   @media (max-width: 768px) {
-    height: 500px;
+    height: 450px;
   }
 `;
 
@@ -14,7 +14,7 @@ export const WeeklyRankingBg = styled.div`
   width: 100vw;
   left: 0;
   position: absolute;
-  background-color: rgb(184, 187, 190);
+  background-color: white;
   z-index: -1;
 
   @media (max-width: 768px) {
@@ -26,12 +26,12 @@ export const HeaderRanking = styled.h1`
   font-size: 36px;
   font-weight: bold;
   margin-bottom: 34px;
-  padding-top: 64px;
-  color: white;
+  padding-top: 20px;
+  color: black;
 
   @media (max-width: 768px) {
     font-size: 30px;
-    padding-top: 30px;
+    padding-top: 10px;
     margin-bottom: 20px;
   }
 `;
@@ -39,7 +39,7 @@ export const HeaderRanking = styled.h1`
 export const SubHeaderRanking = styled.h2`
   font-size: 24px;
   font-weight: normal;
-  color: white;
+  color: black;
 
   @media (max-width: 768px) {
     font-size: 20px;
