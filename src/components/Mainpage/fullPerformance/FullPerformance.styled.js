@@ -58,7 +58,7 @@ export const FullPerformanceImgBox = styled.div`
   & > img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     transition: transform 0.3s ease;
   }
 
@@ -70,6 +70,9 @@ export const FullPerformanceImgBox = styled.div`
 export const FullPerformanceTitle = styled.p`
   margin-top: 10px;
   font-size: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const FullPerformanceDate = styled.p`
