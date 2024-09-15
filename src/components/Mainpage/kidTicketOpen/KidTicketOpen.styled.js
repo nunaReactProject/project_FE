@@ -35,7 +35,7 @@ export const KidTicketOpenBox = styled.div`
 `;
 
 export const KidTicketOpenItem = styled.div`
-  width: 200px;
+  width: 180px;
   cursor: pointer;
 `;
 
@@ -66,7 +66,7 @@ export const KidTicketOpenImgBox = styled.div`
 export const KidTicketOpenTitle = styled.p`
   margin-top: 10px;
   font-size: 18px;
-  width: 190px;
+  width: 180px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

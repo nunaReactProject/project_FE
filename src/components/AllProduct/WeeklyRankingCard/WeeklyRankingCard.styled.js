@@ -57,6 +57,7 @@ export const ProductInfo = styled.div`
   margin-top: 16px;
   font-size: 13px;
   line-height: 22px;
+  margin-left: 5px;
 `;
 
 export const TitleInfo = styled.span`
@@ -75,4 +76,5 @@ export const TitleInfo = styled.span`
 
 export const PeriodInfo = styled.span`
   color: #62676c;
+  margin-left: 1px;
 `;
