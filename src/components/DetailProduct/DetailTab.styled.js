@@ -5,6 +5,10 @@ export const DetailTab = styled.div`
   width: 100%;
   background-color: transparent;
   margin-top: 2rem;
+
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 
 export const TabButton = styled.button`

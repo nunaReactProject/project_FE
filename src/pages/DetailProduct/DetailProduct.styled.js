@@ -15,6 +15,11 @@ export const mainSection = styled.section`
   width: 100%;
   justify-content: center;
   padding-bottom: 2rem;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+  }
 `;
 
 export const mainInfo = styled.div`
@@ -27,6 +32,10 @@ export const titleLine = styled.div`
   justify-content: space-between;
   align-items: center;
   padding-bottom: 15px;
+
+  @media (max-width: 600px) {
+    justify-content: center;
+  }
 `;
 
 export const infoDesc = styled.div`
@@ -188,6 +197,11 @@ export const shareButton = styled.button`
     transition: all 0.3s ease-out;
     transform: scale(1.1);
   }
+
+  @media (max-width: 600px) {
+    position: relative;
+    top: 30px;
+  }
 `;
 
 export const detailSection = styled.section`
@@ -211,6 +225,14 @@ export const detailSection = styled.section`
     color: #62676c;
     font-weight: 600;
   }
+
+  @media (max-width: 600px) {
+    align-items: center;
+    width: 80%;
+    h2 {
+      align-items: left;
+    }
+  }
 `;
 
 export const noticeDiv = styled.div`
@@ -223,6 +245,10 @@ export const noticeDiv = styled.div`
     height: 80%;
     margin-bottom: 4rem;
   }
+
+  @media (max-width: 600px) {
+    width: 45%;
+  }
 `;
 
 export const infoSection = styled.section`
@@ -231,6 +257,10 @@ export const infoSection = styled.section`
   flex-direction: column;
   margin-top: 2rem;
   margin-bottom: 2rem;
+
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 
 export const tableDiv = styled.div`
@@ -279,10 +309,32 @@ export const flexDiv = styled.div`
   justify-content: ${(props) => (props.width ? '100%' : null)};
   align-items: ${(props) => (props.width ? 'center' : null)};
   margin-top: ${(props) => (props.width ? '4rem' : null)};
-  //
   //결제 버튼 박스
   width: ${(props) => (props.book ? '100%' : null)};
   width: ${(props) => (props.time ? '30%' : null)};
+
+  @media (max-width: 600px) {
+    flex-direction: ${(props) => (props.mobileBox ? 'column' : null)};
+    align-items: ${(props) => (props.mobileBox ? 'center' : null)};
+    border: ${(props) => (props.mobileBox ? 'none' : null)};
+    //calendar
+    flex-direction: ${(props) => (props.calender ? 'column' : null)};
+    align-items: ${(props) => (props.calender ? 'center' : null)};
+    border-right: ${(props) => (props.calender ? 'none' : null)};
+    width: ${(props) => (props.calendar ? '40%' : null)};
+    padding-left: ${(props) => (props.calendar ? 'none' : null)};
+    //회차선택
+    flex-direction: ${(props) => (props.time ? 'column' : null)};
+    align-items: ${(props) => (props.time ? 'center' : null)};
+    border-right: ${(props) => (props.time ? 'none' : null)};
+    width: ${(props) => (props.time ? '45%' : null)};
+    padding-left: ${(props) => (props.time ? 'none' : null)};
+    //예매하기
+    width: ${(props) => (props.book ? '45%' : null)};
+    img {
+      display: ${(props) => (props.book ? 'none' : null)};
+    }
+  }
 `;
 
 export const monthStep = styled.div`
@@ -291,6 +343,9 @@ export const monthStep = styled.div`
   width: 100px;
   h2 {
     margin-top: 10px;
+  }
+  @media (max-width: 600px) {
+    margin-right: auto;
   }
 `;
 
@@ -353,6 +408,12 @@ export const seatBox = styled.div`
     color: #242428;
     font-weight: 700;
   }
+
+  @media (max-width: 600px) {
+    margin-left: 0;
+    width: 45%;
+    margin-bottom: 2rem;
+  }
 `;
 
 export const locateP = styled.p`
@@ -380,6 +441,14 @@ export const Button = styled.button`
   &:hover {
     filter: brightness(60%);
     transform: scale(1.05);
+  }
+
+  @media (max-width: 600px) {
+    padding-left: 40%;
+    padding-right: 40%;
+    margin: auto;
+    position: fixed;
+    bottom: 1rem;
   }
 `;
 

@@ -9,7 +9,6 @@ import DetailTab from '../../components/DetailProduct/DetailTab';
 import DetailLocation from './DetailLocation';
 import 'react-calendar/dist/Calendar.css';
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
 
 function DetailProduct() {
   const { id } = useParams();
@@ -65,7 +64,7 @@ function DetailProduct() {
     let currentURL = window.location.url;
     let productImageUrl = data?.poster;
     let productSummary = '';
-    let productTitle = data?.title;
+    let productTitle = data?.prfnm;
 
     const { Kakao } = window;
     if (!Kakao.isInitialized()) {
@@ -159,7 +158,7 @@ function DetailProduct() {
             </S.flexDiv>
           </S.mainInfo>
         </S.mainSection>
-        <S.flexDiv isborder={true}>
+        <S.flexDiv isborder={true} mobileBox={true}>
           <S.flexDiv borderR={true} padding={true} calender={true}>
             <S.monthStep>
               <S.stepH>
