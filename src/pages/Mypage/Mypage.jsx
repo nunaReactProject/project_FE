@@ -6,14 +6,14 @@ import { useUserInfoQuery } from '../../hooks/useUserInfoQuery';
 import { useNavigate } from 'react-router-dom';
 
 export default function Mypage() {
-  const { data: userInfo, isPending } = useUserInfoQuery();
+  const { data: userInfo, isPending, isError } = useUserInfoQuery();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!userInfo && isPending) {
+    if (isError) {
       navigate('/login');
     }
-  }, [userInfo, isPending]);
+  }, [isError, navigate]);
 
   return (
     <S.Container>
