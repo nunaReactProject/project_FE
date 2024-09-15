@@ -89,12 +89,17 @@ export const calendarWrapper = styled.div`
   justify-content: center;
   position: relative;
   width: 100%;
+
   .react-calendar {
     width: 100%;
     padding: 3% 3%;
     border: none;
     border-radius: 0.5rem;
     background-color: white;
+    .highlight abbr {
+      color: black;
+      font-weight: 800;
+    }
   }
   //전체 캘린더 폰트 컬러
   .react-calendar__month-view {
@@ -156,16 +161,23 @@ export const calendarWrapper = styled.div`
 
   /* 오늘 날짜 폰트 컬러 */
   .react-calendar__tile--now {
-    background: none;
+    background-color: #f8f9fa;
     abbr {
       color: black;
-      font-weight: 800;
     }
   }
 
   .react-calendar__navigation__next2-button,
   .react-calendar__navigation__prev2-button {
     display: none;
+  }
+
+  .react-calendar__month-view__days__day {
+    div {
+      .highlight {
+        color: black;
+      }
+    }
   }
 `;
 
