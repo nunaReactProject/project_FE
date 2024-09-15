@@ -1,0 +1,10 @@
+{
+  "banner": [
+    { "poster": "/image/banner/banner5.jpg", "thumbnail": "/image/banner/banner_thumbnail5.jpg" },
+    { "poster": "/image/banner/banner1.jpg", "thumbnail": "/image/banner/banner_thumbnail1.jpg" },
+    { "poster": "/image/banner/banner3.webp", "thumbnail": "/image/banner/banner_thumbnail3.png" },
+    { "poster": "/image/banner/banner2.webp", "thumbnail": "/image/banner/banner_thumbnail2.png" },
+    { "poster": "/image/banner/banner7.jpg", "thumbnail": "/image/banner/banner_thumbnail7.jpg" },
+    { "poster": "/image/banner/banner8.jpg", "thumbnail": "/image/banner/banner_thumbnail8.jpg" }
+  ]
+}
