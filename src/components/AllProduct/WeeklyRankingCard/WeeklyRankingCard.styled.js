@@ -34,7 +34,7 @@ export const ProductImgContainer = styled.div`
 export const ProductImg = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 10px;
   transition: transform 0.3s;
 
@@ -61,9 +61,15 @@ export const ProductInfo = styled.div`
 
 export const TitleInfo = styled.span`
   font-size: 16px;
+  width: 190px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
 
   @media (max-width: 768px) {
     font-size: 14px;
+    width: 170px;
   }
 `;
 
