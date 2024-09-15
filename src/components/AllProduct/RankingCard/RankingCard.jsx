@@ -24,11 +24,11 @@ const RankingCard = ({ products, isLoading }) => {
     <S.Table>
       <S.Thead>
         <S.Tr>
-          <S.Th style={{ width: '10%' }}>랭킹</S.Th>
-          <S.Th style={{ width: '40%' }}>공연명</S.Th>
-          <S.Th style={{ width: '25%' }}>기간/장소</S.Th>
-          <S.Th style={{ width: '10%' }}>장르</S.Th>
-          <S.Th style={{ width: '15%' }}>예매하기</S.Th>
+          <S.Th>랭킹</S.Th>
+          <S.Th>공연명</S.Th>
+          <S.Th>기간/장소</S.Th>
+          <S.Th>장르</S.Th>
+          <S.Th>예매하기</S.Th>
         </S.Tr>
       </S.Thead>
       <S.Tbody>

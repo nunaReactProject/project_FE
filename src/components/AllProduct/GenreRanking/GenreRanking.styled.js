@@ -28,4 +28,9 @@ export const CategoryItem = styled.button`
       background-color: black;
       color: white;
     `}
+
+  @media (max-width: 768px) {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
 `;

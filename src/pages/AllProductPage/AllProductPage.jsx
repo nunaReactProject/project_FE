@@ -33,6 +33,14 @@ export default function AllProductPage() {
     }
   }, [activeRanking]);
 
+  if (isLoading) {
+    return <div>Loading</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
   const products = data?.slice(0, 20);
 
   const GenreClick = () => {
@@ -63,7 +71,7 @@ export default function AllProductPage() {
         <RankingPeriod setStstype={setStstype} setDate={setDate} />
       </div>
       <div>
-        <RankingCard products={products} isLoading={isLoading} />
+        <RankingCard products={products} />
       </div>
     </S.RankingContainer>
   );
