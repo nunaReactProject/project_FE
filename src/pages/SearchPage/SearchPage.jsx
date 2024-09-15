@@ -187,7 +187,7 @@ const SearchPage = () => {
       window.removeEventListener('resize', handleResize); // 정리
     };
   }, []);
-
+  console.log('data', data);
   return (
     <Container>
       <Searchbox>
@@ -285,7 +285,7 @@ const SearchPage = () => {
             </Button>
           </div>
         </Filterbox>
-        <div style={{ display: 'grid', gridTemplateRows: '20px auto' }}>
+        <div style={{ display: 'grid', gridTemplateRows: '50px auto' }}>
           <select onChange={(e) => setSortOption(e.target.value)} defaultValue='showAllMusicals'>
             <option value='showAllMusicals'>전체 보기</option>
             <option value='startDate'>공연 시작일 순으로 정렬</option>
