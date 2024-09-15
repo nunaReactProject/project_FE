@@ -56,6 +56,7 @@ export const TicketOpenImgBox = styled.div`
     height: 100%;
     object-fit: contain;
     transition: transform 0.3s ease;
+    object-fit: contain;
   }
 
   &:hover > img {
