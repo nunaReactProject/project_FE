@@ -9,7 +9,7 @@ import DetailTab from '../../components/DetailProduct/DetailTab';
 import DetailLocation from './DetailLocation';
 import 'react-calendar/dist/Calendar.css';
 import { useParams } from 'react-router-dom';
-import { object } from 'prop-types';
+import styled from 'styled-components';
 
 function DetailProduct() {
   const { id } = useParams();
@@ -44,6 +44,23 @@ function DetailProduct() {
   console.log(typeof data?.styurls.styurl);
   console.log(data?.styurls.styurl);
 
+  //공연예매기간 계산
+  function getDateRangeData(param1, param2) {
+    //param1은 시작일, param2는 종료일이다.
+    let days = [];
+    let sDay = new Date(param1);
+    let lDay = new Date(param2);
+    while (sDay.getTime() <= lDay.getTime()) {
+      let mon = sDay.getMonth() + 1;
+      mon = mon < 10 ? '0' + mon : mon;
+      let day = sDay.getDate();
+      day = day < 10 ? '0' + day : day;
+      days.push(sDay.getFullYear() + '-' + mon + '-' + day);
+      sDay.setDate(sDay.getDate() + 1);
+    }
+    return days;
+  }
+
   const kakaoShare = () => {
     let currentURL = window.location.url;
     let productImageUrl = data?.poster;
@@ -74,6 +91,18 @@ function DetailProduct() {
 
   const bookProduct = () => {
     alert('성공적으로 예매되었습니다!');
+  };
+
+  const highlightDates = getDateRangeData(data?.prfpdfrom, data?.prfpdto);
+
+  // 해당 날짜들에 대해 파란색 스타일 적용
+  const tileClassName = ({ date }) => {
+    // 해당 날짜(하루)에 추가할 컨텐츠의 배열
+    console.log('달력날짜', moment(date).format('YYYY-MM-DD'));
+    // date(각 날짜)가  리스트의 날짜와 일치하면 해당 컨텐츠(이모티콘) 추가
+    if (highlightDates.find((day) => day === moment(date).format('YYYY-MM-DD'))) {
+      return 'highlight';
+    }
   };
 
   return (
@@ -141,6 +170,7 @@ function DetailProduct() {
             <S.calendarWrapper>
               <Calendar
                 calendarType='gregory'
+                tileClassName={tileClassName}
                 onChange={setSelectedDate}
                 value={selectedDate}
                 theme={{ red_1: '#fa2828' }}
@@ -164,7 +194,7 @@ function DetailProduct() {
                 </h2>
                 <h2>
                   <span>
-                    <span>출연진</span>
+                    <span>출연진</span>&nbsp;
                     <span>{data?.prfcast ? data?.prfcast : '없음'}</span>
                   </span>
                 </h2>
@@ -176,19 +206,19 @@ function DetailProduct() {
             <ul>
               <li>
                 <span>VIP석</span>
-                <span>만석</span>
+                <span>1석</span>
               </li>
               <li>
                 <span>R석</span>
-                <span>만석</span>
+                <span>44석</span>
               </li>
               <li>
                 <span>S석</span>
-                <span>만석</span>
+                <span>25석</span>
               </li>
               <li>
                 <span>A석</span>
-                <span>만석</span>
+                <span>31석</span>
               </li>
             </ul>
           </S.seatBox>
