@@ -5,6 +5,7 @@
   "proxy": "http://kopis.or.kr/openApi/restful",
   "dependencies": {
     "@chakra-ui/react": "^2.8.2",
+    "@csstools/normalize.css": "^12.1.1",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
