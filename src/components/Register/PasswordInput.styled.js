@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const InputBox = styled.div`
   display: flex;
@@ -28,4 +29,9 @@ export const Input = styled.input`
   &::placeholder {
     color: #cccccf;
   }
+`;
+
+export const Warning = styled.p`
+  font-size: 13px;
+  color: red;
 `;

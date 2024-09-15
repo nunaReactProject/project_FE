@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './PasswordInput.styled';
-export default function PasswordInput({ info, setInfo }) {
+export default function PasswordInput({ info, setInfo, passwordValidWarning }) {
   const onChangePassword = (e) => {
     setInfo({ ...info, password: e.target.value });
   };
