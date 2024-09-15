@@ -169,3 +169,14 @@ div .genre-area-rank-date-click::before {
   margin: 0 5px;
   color: #a7acb6;
 }
+
+.allviewtext {
+  cursor: pointer;
+}
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1120px;
+  height: 342px;
+}

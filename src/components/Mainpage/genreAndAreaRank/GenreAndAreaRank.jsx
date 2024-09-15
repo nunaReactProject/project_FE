@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './GenreAndAreaRank.style.css';
 import { useAreaRank, useGenreRank } from '../../../hooks/useGenreAreaCategiry';
 import { useNavigate } from 'react-router-dom';
+import { Spinner } from '@chakra-ui/react';
 
 const GenreAndAreaRank = () => {
   const [selectedRank, setSelectedRank] = useState('genre');
@@ -9,9 +10,14 @@ const GenreAndAreaRank = () => {
   const [areaCategoryButton, setAreaCategoryButton] = useState('seoul');
   const [selectedDate, setSelectedDate] = useState('day');
   const [code, setCode] = useState('AAAA');
-  const [data, setDate] = useState(null);
+  const [resource, setResource] = useState(null);
   const baseUrl = 'http://www.kopis.or.kr';
+
   const navigate = useNavigate();
+
+  const onNavigateRaking = () => {
+    navigate('/all');
+  };
 
   const onNavigateDetailPage = (id) => {
     navigate(`/detail/${id}`);
@@ -29,9 +35,14 @@ const GenreAndAreaRank = () => {
   twoDaysAgo.setDate(currentDate.getDate() - 2);
   const formattedCurrentDate = getFormattedDate(currentDate);
   const formattedTwoDaysAgo = getFormattedDate(twoDaysAgo);
+  const [date, setDate] = useState(formattedTwoDaysAgo);
 
-  const genreData = useGenreRank({ ststype: selectedDate, date: formattedTwoDaysAgo, catecode: code });
-  const areaData = useAreaRank({ ststype: selectedDate, date: formattedTwoDaysAgo, area: code });
+  const { data: genreData, isLoading: genreLoading } = useGenreRank({
+    ststype: selectedDate,
+    date: date,
+    catecode: code
+  });
+  const { data: areaData, isLoading: areaLoading } = useAreaRank({ ststype: selectedDate, date: date, area: code });
 
   const categoryMapping = {
     play: 'AAAA',
@@ -59,6 +70,14 @@ const GenreAndAreaRank = () => {
   const areaCategoryClick = (type) => {
     setAreaCategoryButton(type);
     setCode(areaMapping[type]);
+  };
+  const dateClick = (date) => {
+    setSelectedDate(date);
+    if (selectedDate === 'day') {
+      setDate(formattedTwoDaysAgo);
+    } else {
+      setResource(formattedCurrentDate);
+    }
   };
 
   const genreCategories = () => (
@@ -95,6 +114,10 @@ const GenreAndAreaRank = () => {
       </button>
     </>
   );
+
+  const itemClick = (item) => {
+    onNavigateDetailPage(item.mt20id);
+  };
 
   const areaCategories = () => (
     <>
@@ -150,18 +173,25 @@ const GenreAndAreaRank = () => {
   };
 
   useEffect(() => {
-    if (selectedRank === 'genre' && genreData?.data) {
-      setDate(genreData.data);
-    } else if (selectedRank === 'area' && areaData?.data) {
-      setDate(areaData.data);
+    if (selectedRank === 'genre' && genreData) {
+      setResource(genreData);
+    } else if (selectedRank === 'area' && areaData) {
+      setResource(areaData);
     }
-  }, [selectedRank, genreData, areaData]);
+  }, [selectedRank, genreData, areaData, selectedDate]);
 
-  const renderData = (data) => {
-    if (data && data.boxofs && data.boxofs.boxof && data.boxofs.boxof.length > 0) {
-      return data.boxofs.boxof.slice(0, 5).map((item, index) => (
-        <div className='genre-area-rank-item' key={index} onClick={() => onNavigateDetailPage(item.mt20id)}>
-          <div className='genre-area-rank-img-box'>
+  const renderData = (resource, genreLoading, areaLoading) => {
+    if (genreLoading || areaLoading) {
+      return (
+        <div className='spinner-container'>
+          <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl' />
+        </div>
+      );
+    }
+    if (resource && resource.boxofs && resource.boxofs.boxof && resource.boxofs.boxof.length > 0) {
+      return resource.boxofs.boxof.slice(0, 5).map((item, index) => (
+        <div className='genre-area-rank-item' key={index}>
+          <div className='genre-area-rank-img-box' onClick={() => itemClick(item)}>
             <div className='genre-area-rank-img-box-detail'>
               <img src={`${baseUrl}${item.poster}`} alt='' />
             </div>
@@ -172,8 +202,6 @@ const GenreAndAreaRank = () => {
         </div>
       ));
     }
-
-    return <p></p>;
   };
 
   return (
@@ -192,7 +220,9 @@ const GenreAndAreaRank = () => {
               지역별랭킹
             </h1>
           </div>
-          <a href='#'>전체보기</a>
+          <p className='allviewtext' onClick={onNavigateRaking}>
+            전체보기
+          </p>
         </div>
         <div className='genre-area-rank-category-box'>
           <div className='genre-area-rank-category'>
@@ -201,23 +231,23 @@ const GenreAndAreaRank = () => {
           <div className='genre-area-rank-date-category'>
             <div
               className={`genre-area-rank-date-category-item ${selectedDate === 'day' ? 'genre-area-rank-date-click' : ''}`}
-              onClick={() => setSelectedDate('day')}>
+              onClick={() => dateClick('day')}>
               일간
             </div>
             <div
               className={`genre-area-rank-date-category-item ${selectedDate === 'week' ? 'genre-area-rank-date-click' : ''}`}
-              onClick={() => setSelectedDate('week')}>
+              onClick={() => dateClick('week')}>
               주간
             </div>
             <div
               className={`genre-area-rank-date-category-item ${selectedDate === 'month' ? 'genre-area-rank-date-click' : ''}`}
-              onClick={() => setSelectedDate('month')}>
+              onClick={() => dateClick('month')}>
               월간
             </div>
           </div>
         </div>
 
-        <div className='genre-area-rank-box'>{renderData(data)}</div>
+        <div className='genre-area-rank-box'>{renderData(resource, genreLoading, areaLoading)}</div>
       </div>
     </div>
   );

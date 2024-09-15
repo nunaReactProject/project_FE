@@ -73,3 +73,15 @@ export const KidTicketOpenDate = styled.p`
   font-size: 14px;
   color: #fa2828;
 `;
+
+export const AllViewText = styled.p`
+  cursor: pointer;
+`;
+
+export const SpinnerContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1120px;
+  height: 342px;
+`;

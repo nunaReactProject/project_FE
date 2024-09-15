@@ -11,7 +11,8 @@ import {
   Ticketimg,
   Ticketbtn,
   Tickettxt,
-  Spinerbox
+  Spinerbox,
+  FilterButton
 } from './SearchPage.styled';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
@@ -169,6 +170,24 @@ const SearchPage = () => {
     setPage((prevPage) => prevPage + 1); // 페이지 증가
   };
 
+  const [isFilterOpen, setIsFilterOpen] = useState(false); // Filterbox 열림 상태
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // 화면 크기 상태
+
+  const toggleFilterBox = () => {
+    setIsFilterOpen((prev) => !prev); // 열림/닫힘 상태 토글
+  };
+
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= 768); // 화면 크기 업데이트
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize); // 리사이즈 이벤트 리스너 추가
+    return () => {
+      window.removeEventListener('resize', handleResize); // 정리
+    };
+  }, []);
+
   return (
     <Container>
       <Searchbox>
@@ -189,7 +208,8 @@ const SearchPage = () => {
       {isLoading && <Spinerbox></Spinerbox>}
       {error && <p style={{ color: 'red' }}>{error.message}</p>}{' '}
       <Maincontent>
-        <Filterbox>
+        {isMobile && <FilterButton onClick={toggleFilterBox}>{isFilterOpen ? '필터 닫기' : '필터 열기'}</FilterButton>}
+        <Filterbox style={{ display: isFilterOpen || !isMobile ? 'flex' : 'none' }}>
           <div>
             <h2>카테고리</h2>
             {categories.map((category) => (

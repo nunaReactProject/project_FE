@@ -4,11 +4,16 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import * as bn from './Banner.styled.js';
+import { useNavigate } from 'react-router-dom';
 
 const Banner = () => {
   const { data, isLoading } = useBannerQuery();
+  useEffect(() => {
+    if (data) console.log('data', data);
+  }, [data]);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const sliderRef = useRef(null);
+  const navigate = useNavigate();
 
   const settings = {
     dots: false,
@@ -37,34 +42,38 @@ const Banner = () => {
     return <div>No data available</div>;
   }
 
+  const onNavigateBanner = (index) => {
+    console.log(index);
+    index === 0 && navigate('/detail/PF249007');
+    index === 1 && window.open('https://www.youtube.com/watch?v=g7Ch9lpzK_A');
+    index === 2 && navigate('/search?name=시카고');
+    index === 3 && navigate('/detail/PF243257');
+    index === 4 && alert('coming soon');
+    index === 5 && alert('coming soon');
+  };
+
   return (
     <Slider {...settings} ref={sliderRef}>
-      {data.map((dt, index) => (
+      {data.map((banner, index) => (
         <div key={index}>
-          <bn.BannerContainer bgColor={dt.b}>
-            <bn.BannerWrap>
-              <bn.BannerContent>
-                <bn.BannerCategory>{hoveredIndex !== null ? data[hoveredIndex].genrenm : dt.genrenm}</bn.BannerCategory>
-                <bn.BannerTitle>{hoveredIndex !== null ? data[hoveredIndex].prfnm : dt.prfnm}</bn.BannerTitle>
-                <bn.BannerPeriod>
-                  {hoveredIndex !== null
-                    ? `${data[hoveredIndex].prfpdfrom} - ${data[hoveredIndex].prfpdto}`
-                    : `${dt.prfpdfrom} - ${dt.prfpdto}`}
-                </bn.BannerPeriod>
-                <bn.BannerLocation>{hoveredIndex !== null ? data[hoveredIndex].fcltynm : dt.fcltynm}</bn.BannerLocation>
-                <bn.BannerPosters>
-                  {data.map((image, imgIndex) => (
-                    <bn.BannerPosterItem
-                      key={imgIndex}
-                      src={image.poster}
-                      onMouseEnter={() => setHoveredIndex(imgIndex)}
-                      onMouseLeave={() => setHoveredIndex(null)}
-                    />
-                  ))}
-                </bn.BannerPosters>
-              </bn.BannerContent>
-              <bn.BannerImg src={hoveredIndex !== null ? data[hoveredIndex].poster : dt.poster} />
-            </bn.BannerWrap>
+          <bn.BannerContainer>
+            <bn.BannerPosters>
+              {data.map((image, imgIndex) => (
+                <bn.BannerPosterItem
+                  key={imgIndex}
+                  j
+                  src={image.thumbnail}
+                  onMouseEnter={() => setHoveredIndex(imgIndex)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                />
+              ))}
+            </bn.BannerPosters>
+            <bn.BannerImg
+              src={banner.poster}
+              onClick={() => {
+                onNavigateBanner(index);
+              }}
+            />
           </bn.BannerContainer>
         </div>
       ))}

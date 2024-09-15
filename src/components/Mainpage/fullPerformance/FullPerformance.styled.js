@@ -73,13 +73,25 @@ export const FullPerformanceTitle = styled.p`
 `;
 
 export const FullPerformanceDate = styled.p`
-  margin-top: 10px;
+  margin-top: 5px;
   font-size: 14px;
   color: #62676c;
 `;
 
 export const FullPerformanceLocation = styled.p`
-  margin-top: 10px;
+  margin-top: 5px;
   font-size: 14px;
   color: #62676c;
+`;
+
+export const AllViewText = styled.p`
+  cursor: pointer;
+`;
+
+export const SpinnerContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1120px;
+  height: 342px;
 `;

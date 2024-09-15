@@ -15,7 +15,7 @@ export default function Header() {
         <S.Hr>|</S.Hr>
         <S.HeaderButton onClick={() => onNavigatePage('/register')}>회원가입</S.HeaderButton>
         <S.Hr>|</S.Hr>
-        <S.HeaderButton>마이페이지</S.HeaderButton>
+        <S.HeaderButton onClick={() => onNavigatePage('/mypage')}>마이페이지</S.HeaderButton>
       </S.HeaderContainer>
     </S.Overlay>
   );
