@@ -118,13 +118,15 @@ function DetailProduct() {
     });
     orderMutation(
       {
-        id: data.mt20id,
-        title: data.prfnm,
-        date: koreanDateString,
-        time: '09:30',
-        running: data.prfruntime,
-        location: data.fcltynm,
-        poster: data.poster
+        product: {
+          id: data.mt20id,
+          title: data.prfnm,
+          date: koreanDateString,
+          time: '09:30',
+          running: data.prfruntime,
+          location: data.fcltynm,
+          poster: data.poster
+        }
       },
       {
         onSuccess: () => {

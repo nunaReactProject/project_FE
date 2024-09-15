@@ -12,6 +12,7 @@ export const useUserInfoQuery = () => {
     queryFn: fetchUserInfo,
     refetchOnWindowFocus: false,
     refetchOnMount: true,
-    staleTime: 0
+    staleTime: 0,
+    retry: false
   });
 };
