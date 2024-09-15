@@ -5,6 +5,7 @@ import { FaRegCheckCircle } from 'react-icons/fa';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 4px;
   padding-top: 10px;
 `;
 
@@ -13,6 +14,8 @@ export const CheckBox = styled.div`
   align-items: center;
   gap: 8px;
   padding-top: 10px;
+  width: fit-content;
+  cursor: pointer;
 `;
 
 export const CheckOff = styled(FaRegCheckCircle)`
@@ -32,6 +35,6 @@ export const SpamText = styled.div`
 `;
 
 export const Description = styled.p`
-  padding: 25px 0;
+  padding: 20px 0;
   font-size: 13px;
 `;

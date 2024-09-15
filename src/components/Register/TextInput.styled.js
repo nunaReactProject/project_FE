@@ -29,3 +29,8 @@ export const Input = styled.input`
     color: #cccccf;
   }
 `;
+
+export const Warning = styled.p`
+  font-size: 13px;
+  color: red;
+`;
