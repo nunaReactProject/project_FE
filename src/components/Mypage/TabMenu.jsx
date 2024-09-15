@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import * as S from './TabMenu.styled';
 
-export default function TabMenu() {
-  const [tabHighlight, setTabHighlight] = useState('회원정보');
-
+export default function TabMenu({ tabHighlight, setTabHighlight }) {
   const onSwitchTab = (tab) => {
     setTabHighlight(tab);
   };

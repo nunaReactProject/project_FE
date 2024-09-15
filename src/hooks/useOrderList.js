@@ -1,15 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
 import { serviceApi } from '../Api';
 
-const fetchOrderList = async () => {
-  const response = await serviceApi.get('/product');
-  return response;
+const fetchOrderList = async (params = {}) => {
+  const query = new URLSearchParams(params).toString();
+  if (query) {
+    const response = await serviceApi.get(`/product?${query}`);
+    return response;
+  }
 };
 
-export const useOrderListQuery = () => {
+export const useOrderListQuery = (params) => {
   return useQuery({
-    queryKey: ['orderlist'],
-    queryFn: fetchOrderList,
+    queryKey: ['orderlist', params],
+    queryFn: () => fetchOrderList(params),
     select: (result) => result.data.data
   });
 };

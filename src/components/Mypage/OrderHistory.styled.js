@@ -1,9 +1,11 @@
 import styled from 'styled-components';
+import ReactPaginate from 'react-paginate';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 20px;
+  padding-bottom: 40px;
 `;
 
 export const TabTitle = styled.p`
@@ -66,5 +68,34 @@ export const CancelButton = styled.button`
   &:hover {
     color: white;
     background-color: black;
+  }
+`;
+
+export const ReactPaginateStyle = styled(ReactPaginate).attrs({
+  activeClassName: 'activePage'
+})`
+  display: flex;
+  justify-content: center;
+  /* gap: 12px; */
+  font-size: 24px;
+  font-family: proxima-nova;
+
+  padding-top: 20px;
+
+  .activePage a {
+    color: #1a74c0;
+    font-size: 24px;
+    padding: 8px 12px;
+    border-radius: 5px;
+  }
+
+  li a {
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  li a:hover {
+    color: #1a74c0;
   }
 `;
