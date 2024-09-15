@@ -39,7 +39,7 @@ export const FullPerformanceBox = styled.div`
 `;
 
 export const FullPerformanceItem = styled.div`
-  width: calc(25% - 40px);
+  width: calc(25% - 50px);
   height: 444px;
   cursor: pointer;
   box-sizing: border-box;
