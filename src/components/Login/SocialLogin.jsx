@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './SocialLogin.styled';
 
-export default function SocialLogin() {
+export default function SocialLogin({ warning }) {
   return (
     <S.Container>
       <S.KakaoButton src='/image/kakao.png' />
