@@ -27,11 +27,11 @@
   justify-content: space-between;
 }
 .genre-area-rank-item {
-  width: 200px;
+  width: 180px;
   cursor: pointer;
 }
 .genre-area-rank-img-box {
-  width: 200px;
+  width: 180px;
   height: 247px;
   position: relative;
 }

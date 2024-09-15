@@ -36,7 +36,7 @@ export const TicketOpenBox = styled.div`
 `;
 
 export const TicketOpenItem = styled.div`
-  width: 200px;
+  width: 180px;
   cursor: pointer;
 `;
 
@@ -56,7 +56,6 @@ export const TicketOpenImgBox = styled.div`
     height: 100%;
     object-fit: contain;
     transition: transform 0.3s ease;
-    object-fit: contain;
   }
 
   &:hover > img {
@@ -68,7 +67,7 @@ export const TicketOpenImgBox = styled.div`
 export const TicketOpenTitle = styled.p`
   margin-top: 10px;
   font-size: 18px;
-  width: 190px;
+  width: 180px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
